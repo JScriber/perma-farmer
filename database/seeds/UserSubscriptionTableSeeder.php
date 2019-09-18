@@ -17,7 +17,7 @@ class UserSubscriptionTableSeeder extends Seeder
         $subscription = App\Subscription::all()->first();
 
         // Concrete user.
-        $user = App\User::all()->where('firstname', '=', 'Jean')->first();
+        $user = App\User::all()->where('firstname', '=', 'client')->first();
 
         // Inital bag linked.
         $bag = App\Bag::all()->first();
@@ -25,6 +25,7 @@ class UserSubscriptionTableSeeder extends Seeder
 
         $userSubscription = new UserSubscription();
 
+        $userSubscription->pro_account = false;
         $userSubscription->subscription()->associate($subscription);
         $userSubscription->user()->associate($user);
         $userSubscription->save();

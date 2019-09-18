@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Bag;
+use App\CreditCard;
 use App\Http\Controllers\Controller;
+use App\Role;
 use App\Subscription;
 use App\User;
 use App\UserSubscription;
@@ -96,16 +98,33 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // Create the credit card.
+        $creditCard = CreditCard::create([
+            'owner' => $data['card_owner'],
+            'card_number' => $data['card_number'],
+            'crypto' => $data['card_crypto'],
+            'type' => $data['card_type'],
+            'expiration_date' => $data['card_expiration_date'],
+        ]);
+
+        // Create the user.
         $user = User::create([
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'pro_account' => $data['account_type'] == 'pro',
-            'credit_card_id' => 1
+            'credit_card_id' => $creditCard->id,
+            'role_id' => Role::clientRole()->id
         ]);
 
-        $this->create_subscription($user, $data['subscription']);
+        $creditCard = CreditCard::all()->find(1);
+        $creditCard->user()->associate($user);
+        $creditCard->save();
+
+
+        $pro_account = $data['account_type'] == 'pro';
+
+        $this->create_subscription($user, $data['subscription'], $pro_account);
 
         return $user;
     }
@@ -114,8 +133,9 @@ class RegisterController extends Controller
      * Creates the subscription of the client.
      * @param $user
      * @param $subscription_id
+     * @param $pro_account
      */
-    protected function create_subscription($user, $subscription_id)
+    protected function create_subscription($user, $subscription_id, $pro_account)
     {
         // Find an available bag.
         $bag = Bag::all()->where('user_subscription_id', "=", null)->first();
@@ -125,6 +145,7 @@ class RegisterController extends Controller
 
             $userSubscription = new UserSubscription();
 
+            $userSubscription->pro_account = $pro_account;
             $userSubscription->subscription()->associate($subscription);
             $userSubscription->user()->associate($user);
             $userSubscription->save();

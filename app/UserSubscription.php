@@ -18,7 +18,7 @@ class UserSubscription extends Model
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['pro_account'];
 
     /**
      * {@link Basket} made by the user.
