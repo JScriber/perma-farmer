@@ -1,4 +1,4 @@
-@extends('layouts.bag')
+@extends('layouts.app')
 
 @section('content')
     <div class="row">
@@ -29,10 +29,10 @@
         <tr>
             <td>{{ ++$i }}</td>
             <td>{{ $bag->reference }}</td>
-            @if(!isset($bag->clientSubscription->client))
+            @if(!isset($bag->userSubscription->client))
             <td></td>
             @else
-            <td>{{ $bag->clientSubscription->client->firstname }}</td>
+            <td>{{ $bag->userSubscription->client->firstname }}</td>
             @endif
 
             <td>

@@ -1,4 +1,4 @@
-@extends('layouts.bag')
+@extends('layouts.app')
 
 @section('content')
     <div class="row">
@@ -36,13 +36,13 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <select class="form-control" name="client_subscription_id" placeholder="numéro client">
-                    <option value="-1" {{$bag->clientSubscription == null ? 'selected' : '' }}>aucun</option>
+                    <option value="-1" {{$bag->userSubscription == null ? 'selected' : '' }}>aucun</option>
 
                     @foreach ($subscriptions as $subscription)
                         <option value="{{$subscription->id}}" <?php
 
-                            if ($bag->clientSubscription != null) {
-                                if ($bag->clientSubscription->id == $subscription->id) {
+                            if ($bag->userSubscription != null) {
+                                if ($bag->userSubscription->id == $subscription->id) {
                                     echo 'selected';
                                 }
                             }

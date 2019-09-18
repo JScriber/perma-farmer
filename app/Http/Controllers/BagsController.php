@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Bag;
 use Illuminate\Http\Request;
-use App\ClientSubscription;
+use App\UserSubscription;
 
 class BagsController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // /**
+    //  * Create a new controller instance.
+    //  *
+    //  * @return void
+    //  */
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +25,7 @@ class BagsController extends Controller
     public function index(Bag $bag)
     {
         $bags = Bag::latest()->paginate(5);
-        $clients = ClientSubscription::all()->all();
+        $clients = UserSubscription::all()->all();
         return view('bags.index',[
             "bags"=>$bags,
             "subscriptions"=>$clients
@@ -54,24 +54,12 @@ class BagsController extends Controller
     {
         $request->validate([
             'reference' => 'required',
-            'client_subscription_id' => 'required',
         ]);
 
         Bag::create($request->all());
 
         return redirect()->route('bags.index')
                         ->with('success','Le sac a été créer avec succès.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Bag  $bag
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Bag $bag)
-    {
-        return view('bags.show',compact('bag'));
     }
 
     /**
@@ -82,7 +70,7 @@ class BagsController extends Controller
      */
     public function edit(Bag $bag)
     {
-        $clients = ClientSubscription::all()->all();
+        $clients = UserSubscription::all()->all();
         return view('bags.edit',[
             "bag"=>$bag,
             "subscriptions"=>$clients
@@ -109,9 +97,6 @@ class BagsController extends Controller
             $database_bag = App\Bag::all()->find($bag->id);
 
             $client = $database_bag->client;
-
-            $client->
-
         }
 
 
