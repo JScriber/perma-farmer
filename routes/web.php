@@ -34,3 +34,8 @@ Route::get('/admin/stock/modifier/valider','StockController@validEdit')->name("v
 Route::resource('/admin/bags','BagsController');
 Route::resource('/admin/crates','CrateController');
 
+// Route::get('/panier', function () {
+//     return view('basket');
+// });
+
+Route::resource('panier', 'BasketController');
