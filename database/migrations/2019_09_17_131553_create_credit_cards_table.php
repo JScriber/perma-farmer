@@ -16,11 +16,13 @@ class CreateCreditCardsTable extends Migration
         Schema::create('credit_cards', function (Blueprint $table) {
             $table->increments('id');
             $table->string('owner');
+            $table->string('type');
             $table->string('card_number');
             $table->string('crypto');
             $table->date('expiration_date');
 
-            $table->integer('client_id')->unsigned();
+            // The credit card needs to be created before the Client.
+            $table->integer('client_id')->unsigned()->nullable();
         });
     }
 

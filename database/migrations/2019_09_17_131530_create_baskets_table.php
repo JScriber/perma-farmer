@@ -20,7 +20,9 @@ class CreateBasketsTable extends Migration
             $table->timestamps();
 
             $table->integer('client_subscription_id')->unsigned();
-            $table->integer('crate_id')->unsigned();
+
+            // The basket has a crate if it has been validated.
+            $table->integer('crate_id')->unsigned()->nullable();
         });
     }
 
