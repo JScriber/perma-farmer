@@ -15,6 +15,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+<<<<<<< HEAD
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+=======
+
+
+// Block_stock
+
+
+
+Route::get('/stock', function () {
+    return view('welcome');
+});
+Route::get('/stock/edit', function () {
+    return view('welcome');
+});
+Route::get('/stock/new', function () {
+    return view('welcome');
+});
+>>>>>>> add routes
