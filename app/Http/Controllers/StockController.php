@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use App\Product;
 
 Class StockController extends Controller{
-    public function show(Request $request){
-        
-        $stock = Product::all()->all();
-         
-        return view('stock.show')->with('stock',$stock);
+    public function show(Product $product){
+
+        $product =Product::latest()->paginate(10);
+        return view('stock.show',[
+            "stock"=>$product
+        ])->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     public function edit(Request $request){
@@ -31,7 +32,7 @@ Class StockController extends Controller{
         $data = array("name" => $request->nom,"weight" => $request->poids, "quantity"=> $request->quantite);
 
         Product::where("id", $request->id)->update($data);
- 
+
         return view('stock.show')->with('stock',Product::all()->all());
     }
 
@@ -47,14 +48,14 @@ Class StockController extends Controller{
         $data = array("name" => $request->nom,"weight" => $request->poids, "quantity"=> $request->quantite, "reserved_quantity"=>"0");
 
         Product::create($data);
- 
+
         return view('stock.show')->with('stock',Product::all()->all());
     }
 
     public function delete(Request $request){
 
         Product::where("id","=",$request->id)->delete();
-        
+
         return view('stock.show')->with('stock',Product::all()->all());
 
         // var_dump($request->id);

@@ -24,12 +24,12 @@ class BagsController extends Controller
      */
     public function index(Bag $bag)
     {
-        $bags = Bag::latest()->paginate(5);
+        $bags = Bag::latest()->paginate(10);
         $clients = UserSubscription::all()->all();
         return view('bags.index',[
             "bags"=>$bags,
             "subscriptions"=>$clients
-        ])->with('i', (request()->input('page', 1) - 1) * 5);
+        ])->with('i', (request()->input('page', 1) - 1) * 10);
 
     }
 
