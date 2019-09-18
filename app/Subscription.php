@@ -18,6 +18,6 @@ class Subscription extends Model
      *
      * @var array
      */
-    protected $fillable = ['max_weight', 'price'];
+    protected $fillable = ['name', 'max_weight', 'price'];
 
 }

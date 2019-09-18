@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
             ProductTableSeeder::class,
             CreditCardTableSeeder::class,
 
-            ClientTableSeeder::class,
-            ClientSubscriptionTableSeeder::class,
+            UserTableSeeder::class,
+            UserSubscriptionTableSeeder::class,
             BasketTableSeeder::class
         ]);
     }

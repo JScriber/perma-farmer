@@ -14,7 +14,7 @@ class Basket extends Model
      *
      * @var array
      */
-    protected $fillable = ['status', 'order_date', 'client_subscription_id', 'crate_id'];
+    protected $fillable = ['status', 'order_date', 'user_subscription_id', 'crate_id'];
 
     /**
      * {@link BasketProduct} in the {@link Basket}.
@@ -29,9 +29,9 @@ class Basket extends Model
      * {@link Basket} owner.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function clientSubscription()
+    public function userSubscription()
     {
-        return $this->belongsTo(ClientSubscription::class);
+        return $this->belongsTo(UserSubscription::class);
     }
 
     /**
