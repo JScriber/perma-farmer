@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 
 Class Stock extends Controller{
     public function show(Request $request){
-        var_dump('test');
+        $stock = App\ClientSubscription::all()->all();
+        return view('bags.create')->with('subscriptions', $clients);
     }
 
     public function edit(Request $request){

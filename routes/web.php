@@ -24,6 +24,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Block_stock
 
-Route::view('/admin/stock','stock');
+Route::get('/admin/stock','Stock@show');
 Route::get('/admin/stock/ajouter','Stock@add');
 Route::get('/admin/stock/modifier','Stock@edit');
