@@ -20,12 +20,12 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->boolean('pro_account');
 
             $table->rememberToken();
             $table->timestamps();
 
-            $table->integer('credit_card_id')->unsigned();
+            $table->integer('role_id')->unsigned();
+            $table->integer('credit_card_id')->unsigned()->nullable();
         });
     }
 

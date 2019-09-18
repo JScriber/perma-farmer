@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Bag extends Model
 {
@@ -14,7 +15,7 @@ class Bag extends Model
      *
      * @var array
      */
-    protected $fillable = ['reference', 'user_subscription_id'];
+    protected $fillable = ['reference'];
 
     /**
      * Bag of a {@link UserSubscription}.
@@ -22,6 +23,6 @@ class Bag extends Model
      */
     public function userSubscription()
     {
-        return $this->belongsTo(UserSubscription::class);
+        return $this->belongsTo(UserSubscription::class, 'user_subscription_id');
     }
 }

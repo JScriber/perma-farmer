@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstname', 'lastname', 'password', 'email', 'pro_account', 'credit_card_id'
+        'firstname', 'lastname', 'password', 'email', 'credit_card_id', 'role_id'
     ];
 
     /**
@@ -40,6 +40,14 @@ class User extends Authenticatable
     public $timestamps = false;
 
     /**
+     * Role.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function role() {
+        return $this->belongsTo(Role::class);
+    }
+
+    /**
      * {@link Subscription Subscriptions} of the {@link Client}.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -54,6 +62,18 @@ class User extends Authenticatable
      */
     public function creditCard()
     {
-        return $this->hasOne(CreditCard::class);
+        return $this->hasOne(CreditCard::class, 'user_id', 'credit_card_id');
+    }
+
+    /**
+     * Says if the user has the given role.
+     * @param Role $role
+     * @return bool
+     */
+    public function authorizeRole($role) {
+
+        $has_role = $this->role->id == $role->id;
+
+        return $has_role || abort(401, 'This action is unauthorized.');
     }
 }

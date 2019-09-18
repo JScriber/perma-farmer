@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class AdminTableSeeder extends Seeder
+class RoleTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,9 +12,12 @@ class AdminTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('admins')->insert([
-            'login' => 'admin',
-            'password' => bcrypt('password')
+        DB::table('roles')->insert([
+            'name' => 'Client simple'
+        ]);
+
+        DB::table('roles')->insert([
+            'name' => 'Membre du staff'
         ]);
     }
 }
