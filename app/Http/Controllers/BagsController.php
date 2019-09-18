@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bag;
+use App\Role;
 use Illuminate\Http\Request;
 use App\UserSubscription;
 
@@ -13,17 +14,18 @@ class BagsController extends Controller
     //  *
     //  * @return void
     //  */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Bag $bag)
+    public function index(Request $request)
     {
+        $request->user()->authorizeRole(Role::adminRole());
         $bags = Bag::latest()->paginate(10);
         $clients = UserSubscription::all()->all();
         return view('bags.index',[

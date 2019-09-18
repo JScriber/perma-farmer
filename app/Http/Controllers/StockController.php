@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Role;
 
 Class StockController extends Controller{
-    public function show(Product $product){
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    public function show(Request $request){
 
+        $request->user()->authorizeRole(Role::adminRole());
         $product =Product::latest()->paginate(10);
         return view('stock.show',[
             "stock"=>$product
