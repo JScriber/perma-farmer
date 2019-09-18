@@ -14,14 +14,14 @@ class CreditCard extends Model
      *
      * @var array
      */
-    protected $fillable = ['client_id', 'owner', 'type', 'card_number', 'crypto', 'expiration_date'];
+    protected $fillable = ['user_id', 'owner', 'type', 'card_number', 'crypto', 'expiration_date'];
 
     /**
      * {@link Client} who uses the {@link CreditCard}.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function client()
+    public function user()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(User::class);
     }
 }
