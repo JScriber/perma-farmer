@@ -15,7 +15,6 @@ class Client extends Model
      * @var array
      */
     protected $fillable = ['firstname', 'lastname', 'password', 'email_address', 'pro_account', 'credit_card_id'];
-
     /**
      * {@link Subscription Subscriptions} of the {@link Client}.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
