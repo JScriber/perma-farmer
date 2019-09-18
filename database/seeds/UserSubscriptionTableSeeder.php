@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ClientSubscriptionTableSeeder extends Seeder
+class UserSubscriptionTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,17 +14,17 @@ class ClientSubscriptionTableSeeder extends Seeder
     {
         $subscription = App\Subscription::all()->first();
 
-        $client = App\Client::all()->where('firstname', '=', 'Jean')->first();
+        $client = App\User::all()->where('firstname', '=', 'Jean')->first();
 
         $bag = App\Bag::all()->first();
 
-        $id = DB::table('client_subscriptions')->insertGetId([
+        $id = DB::table('user_subscriptions')->insertGetId([
             'subscription_id' => $subscription->id,
-            'client_id' => $client->id,
+            'user_id' => $client->id,
             'bag_id' => $bag->id
         ]);
 
-        $bag->client_subscription_id = $id;
+        $bag->user_subscription_id = $id;
 
         $bag->save();
     }

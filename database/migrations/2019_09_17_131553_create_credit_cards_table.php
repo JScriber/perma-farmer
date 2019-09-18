@@ -21,8 +21,8 @@ class CreateCreditCardsTable extends Migration
             $table->string('crypto');
             $table->date('expiration_date');
 
-            // The credit card needs to be created before the Client.
-            $table->integer('client_id')->unsigned()->nullable();
+            // The credit card needs to be created before the user.
+            $table->integer('user_id')->unsigned()->nullable();
         });
     }
 

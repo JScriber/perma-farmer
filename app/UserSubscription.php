@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ClientSubscription extends Model
+class UserSubscription extends Model
 {
 
     public $timestamps = false;
@@ -14,7 +14,7 @@ class ClientSubscription extends Model
      *
      * @var array
      */
-    protected $fillable = ['subscription_id', 'client_id', 'bag_id'];
+    protected $fillable = ['subscription_id', 'user_id', 'bag_id'];
 
     /**
      * {@link Basket} made by the user.
@@ -44,11 +44,11 @@ class ClientSubscription extends Model
     }
 
     /**
-     * {@link Client} who has the {@link Subscription}.
+     * {@link User} who has the {@link Subscription}.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function client()
+    public function user()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(User::class);
     }
 }

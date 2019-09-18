@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ClientTableSeeder extends Seeder
+class UserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,18 +13,18 @@ class ClientTableSeeder extends Seeder
     public function run()
     {
 
-        DB::table('clients')->insert([
+        DB::table('users')->insert([
             'firstname' => 'Jean',
             'lastname' => 'Dupont',
             'password' => bcrypt('password'),
-            'email_address' => 'jean.dupont@gmail.com',
+            'email' => 'jean.dupont@gmail.com',
             'pro_account' => false,
             'credit_card_id' => 1
         ]);
 
         // Attach the credit card to the client.
         $creditCard = App\CreditCard::all()->find(1);
-        $creditCard->client_id = App\Client::all()->where('firstname', '=', 'Jean')->first()->id;
+        $creditCard->user_id = App\User::all()->where('firstname', '=', 'Jean')->first()->id;
 
         $creditCard->save();
     }
