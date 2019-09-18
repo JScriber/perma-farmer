@@ -14,7 +14,7 @@ class CreditCard extends Model
      *
      * @var array
      */
-    protected $fillable = ['client_id', 'owner', 'card_number', 'crypto', 'expiration_date'];
+    protected $fillable = ['client_id', 'owner', 'type', 'card_number', 'crypto', 'expiration_date'];
 
     /**
      * {@link Client} who uses the {@link CreditCard}.
