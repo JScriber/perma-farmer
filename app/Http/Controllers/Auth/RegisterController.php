@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
 use App\Http\Controllers\Controller;
+use App\Subscription;
+use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -41,6 +42,26 @@ class RegisterController extends Controller
     }
 
     /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        // Subscription choice.
+        $subscriptions = Subscription::all()->all();
+
+        return view('auth.register', [
+            'subscriptions' => $subscriptions,
+            'cards' => [
+                'MasterCard',
+                'Visa',
+                'American Express'
+            ]
+        ]);
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -49,9 +70,18 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'firstname' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'account_type' => ['required', 'string'],
+            'subscription' => ['required'],
+
+            'card_owner' => ['required', 'string', 'min:2'],
+            'card_type' => ['required', 'string'],
+            'card_number' => ['required', 'string', 'max:16', 'min:16'],
+            'card_crypto' => ['required', 'string', 'max:3', 'min:3'],
+            'card_expiration_date' => ['required', 'string', 'date']
         ]);
     }
 
@@ -63,10 +93,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        $user = User::create([
+            'firstname' => $data['firstname'],
+            'lastname' => $data['lastname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'pro_account' => $data['account_type'] == 'pro',
+            'credit_card_id' => 1
         ]);
+
+        $this->create_subscription($user);
+
+        return $user;
     }
+
+    protected function create_subscription($user)
+    {
+
+        // TODO: Attach a random bag.
+    }
+
 }

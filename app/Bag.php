@@ -14,14 +14,14 @@ class Bag extends Model
      *
      * @var array
      */
-    protected $fillable = ['reference', 'client_subscription_id'];
+    protected $fillable = ['reference', 'user_subscription_id'];
 
     /**
-     * Bag of a {@link ClientSubscription}.
+     * Bag of a {@link UserSubscription}.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function clientSubscription()
+    public function userSubscription()
     {
-        return $this->belongsTo(ClientSubscription::class);
+        return $this->belongsTo(UserSubscription::class);
     }
 }

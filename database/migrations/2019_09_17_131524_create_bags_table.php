@@ -17,7 +17,7 @@ class CreateBagsTable extends Migration
             $table->increments('id');
             $table->string('reference')->unique();
 
-            $table->integer('client_subscription_id')->unsigned()->nullable();
+            $table->integer('user_subscription_id')->unsigned()->nullable();
         });
     }
 

@@ -14,12 +14,12 @@ class BasketTableSeeder extends Seeder
     public function run()
     {
 
-        $clientSubscription = App\ClientSubscription::all()->first();
+        $userSubscription = App\UserSubscription::all()->first();
 
         $id = DB::table('baskets')->insertGetId([
             'status' => 'wait_validation',
             'order_date' => Carbon::now(),
-            'client_subscription_id' => $clientSubscription->id
+            'user_subscription_id' => $userSubscription->id
         ]);
 
         $basket = App\Basket::all()->find($id);

@@ -19,8 +19,6 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-
-
 // Block_stock
 
 Route::get('/admin/stock','StockController@show')->name("stock");

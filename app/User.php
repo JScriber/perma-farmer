@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'firstname', 'lastname', 'password', 'email', 'pro_account', 'credit_card_id'
     ];
 
     /**
@@ -36,4 +36,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public $timestamps = false;
+
+    /**
+     * {@link Subscription Subscriptions} of the {@link Client}.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userSubscriptions()
+    {
+        return $this->hasMany(UserSubscription::class);
+    }
+
+    /**
+     * Payment credit card.
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function creditCard()
+    {
+        return $this->hasOne(CreditCard::class);
+    }
 }
