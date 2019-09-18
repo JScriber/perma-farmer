@@ -4,6 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class UserSubscription
+ * @package App
+ */
 class UserSubscription extends Model
 {
 

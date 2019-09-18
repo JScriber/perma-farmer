@@ -3,9 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Bag extends Model
 {
+
+    /**
+     * Lists the bags that are not linked to any {@link User}.
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public static function listAvailable() {
+        return DB::table('bags')->whereNull('user_subscription_id');
+    }
 
     public $timestamps = false;
 

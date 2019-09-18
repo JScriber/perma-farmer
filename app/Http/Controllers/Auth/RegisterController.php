@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Bag;
 use App\Http\Controllers\Controller;
 use App\Subscription;
 use App\User;
+use App\UserSubscription;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -102,15 +105,32 @@ class RegisterController extends Controller
             'credit_card_id' => 1
         ]);
 
-        $this->create_subscription($user);
+        $this->create_subscription($user, $data['subscription']);
 
         return $user;
     }
 
-    protected function create_subscription($user)
+    /**
+     * Creates the subscription of the client.
+     * @param $user
+     * @param $subscription_id
+     */
+    protected function create_subscription($user, $subscription_id)
     {
+        // Find an available bag.
+        $bag = Bag::listAvailable()->first();
 
-        // TODO: Attach a random bag.
+        if ($bag != null) {
+
+            $subscription = UserSubscription::create([
+                'subscription_id' => $subscription_id,
+                'user_id' => $user->id,
+                'bag_id' => $bag->id
+            ]);
+
+            DB::table('bags')
+                ->where('id', $bag->id)
+                ->update(['user_subscription_id' => $subscription->id]);
+        }
     }
-
 }
