@@ -8,14 +8,6 @@ use Illuminate\Support\Facades\DB;
 class Bag extends Model
 {
 
-    /**
-     * Lists the bags that are not linked to any {@link User}.
-     * @return \Illuminate\Database\Query\Builder
-     */
-    public static function listAvailable() {
-        return DB::table('bags')->whereNull('user_subscription_id');
-    }
-
     public $timestamps = false;
 
     /**
@@ -23,7 +15,7 @@ class Bag extends Model
      *
      * @var array
      */
-    protected $fillable = ['reference', 'user_subscription_id'];
+    protected $fillable = ['reference'];
 
     /**
      * Bag of a {@link UserSubscription}.
@@ -31,6 +23,6 @@ class Bag extends Model
      */
     public function userSubscription()
     {
-        return $this->belongsTo(UserSubscription::class);
+        return $this->belongsTo(UserSubscription::class, 'user_subscription_id');
     }
 }

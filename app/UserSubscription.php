@@ -18,7 +18,7 @@ class UserSubscription extends Model
      *
      * @var array
      */
-    protected $fillable = ['subscription_id', 'user_id', 'bag_id'];
+    protected $fillable = [];
 
     /**
      * {@link Basket} made by the user.
@@ -31,11 +31,11 @@ class UserSubscription extends Model
 
     /**
      * Bag owned by the {@link Client}.
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function bag()
+    public function bags()
     {
-        return $this->hasOne(Bag::class);
+        return $this->hasMany(Bag::class);
     }
 
     /**

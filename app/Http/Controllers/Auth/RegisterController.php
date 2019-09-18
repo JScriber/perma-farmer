@@ -118,19 +118,19 @@ class RegisterController extends Controller
     protected function create_subscription($user, $subscription_id)
     {
         // Find an available bag.
-        $bag = Bag::listAvailable()->first();
+        $bag = Bag::all()->where('user_subscription_id', "=", null)->first();
+        $subscription = Subscription::all()->find($subscription_id);
 
         if ($bag != null) {
 
-            $subscription = UserSubscription::create([
-                'subscription_id' => $subscription_id,
-                'user_id' => $user->id,
-                'bag_id' => $bag->id
-            ]);
+            $userSubscription = new UserSubscription();
 
-            DB::table('bags')
-                ->where('id', $bag->id)
-                ->update(['user_subscription_id' => $subscription->id]);
+            $userSubscription->subscription()->associate($subscription);
+            $userSubscription->user()->associate($user);
+            $userSubscription->save();
+
+            $bag->userSubscription()->associate($userSubscription);
+            $bag->save();
         }
     }
 }
