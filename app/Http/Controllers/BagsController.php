@@ -61,7 +61,7 @@ class BagsController extends Controller
         Bag::create($request->all());
 
         return redirect()->route('bags.index')
-                        ->with('success','Le sac a été créer avec succès.');
+                        ->with('success','Le sac a été créé avec succès.');
     }
 
     /**
@@ -123,6 +123,6 @@ class BagsController extends Controller
         $bag->delete();
 
         return redirect()->route('bags.index')
-                        ->with('success','Le sac a été supprimer avec succès');
+                        ->with('success','Le sac a été supprimé avec succès');
     }
 }

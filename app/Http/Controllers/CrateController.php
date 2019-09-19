@@ -56,7 +56,7 @@ class CrateController extends Controller
         Crate::create($request->all());
 
         return redirect()->route('crates.index')
-                        ->with('success','Le cageot a été créer avec succès.');
+                        ->with('success','Le cageot a été créé avec succès.');
     }
 
     /**
@@ -101,6 +101,6 @@ class CrateController extends Controller
         $crate->delete();
 
         return redirect()->route('crates.index')
-                        ->with('success','Le cageot a été supprimer avec succès');
+                        ->with('success','Le cageot a été supprimé avec succès');
     }
 }
