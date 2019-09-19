@@ -18,11 +18,11 @@ class Basket extends Model
 
     /**
      * {@link BasketProduct} in the {@link Basket}.
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function products()
+    public function basketProducts()
     {
-        return $this->belongsToMany(Product::class, 'basket_product', 'basket_id', 'product_id');
+        return $this->hasMany(BasketProduct::class, 'basket_id');
     }
 
     /**

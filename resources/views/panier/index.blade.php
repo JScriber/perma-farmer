@@ -5,27 +5,30 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h2>Votre panier à personnaliser</h2>
+            <a href="" class="btn-link">Reporter mon panier</a>
 
             <div class="card">
                 <div class="card-header">
-                    <div class="weight">1,6kg / 7kg</div>
-                    <input type="submit" value="Valider mon panier">
-                    <button class="report">Reporter mon panier</button>
+                    <div class="form-group row">
+                        <select class="form-control" id="basket-choices"></select>
 
-                    <div class="add-item">
-                        <select id="basket-choices"></select>
-
-                        <button id="add-basket" type="button">Ajouter</button>
+                        <button id="add-basket" class="btn" type="button">Ajouter</button>
                     </div>
                 </div>
 
                 <div class="card-body">
 
                     <form action={{url('panier')}} method="POST">
+                        @csrf
+
+                        <div class="info">
+                            <div id="total-weight">1,6kg / 7kg</div>
+                            <button type="submit" class="btn-primary">Valider mon panier</button>
+                        </div>
 
                         <ul id="list-selected-baskets">
                             <li class="template" style="list-style: none; border: 1px solid grey; padding: 10px">
-                                <button type="button" class="delete">Supprimer</button>
+                                <button type="button" class="delete btn-danger">Supprimer</button>
                                 <div class="image-product">
                                     <img src="../assets/panier.png" alt="panier">
                                 </div>
@@ -35,9 +38,11 @@
                                     <div class="weight"><p></p></div>
                                 </div>
 
+                                <input hidden readonly class="product-id" type="number" name="products[][id]"/>
+
                                 <div class="quantity-container">
                                     <button type="button" class="minus">-</button>
-                                    <input class="quantity" type="text" value="0" name="quantity"/>
+                                    <input readonly class="quantity" type="number" name="products[][quantity]"/>
                                     <button type="button" class="plus">+</button>
 
                                     <p>pièces/bottes</p>
@@ -57,7 +62,8 @@
     // All known products.
     const allProducts = {!! $products !!};
 
-    const maxWeight = {!! $maxWeight !!}
+    // Max weight in gramme.
+    const maxWeight = {!! $max_weight !!};
 
     // IDs of the selected baskets.
     let selectedProducts = [];
@@ -103,10 +109,11 @@
         }, 0);
     }
 
+    /** Updates the weight. */
     function updateWeight() {
-        const weight = totalWeight();
+        const weight = totalWeight() / 1000;
 
-        console.log(weight);
+        document.getElementById('total-weight').innerHTML = weight + 'kg / ' + maxWeight / 1000 + 'kg';
     }
 
     /** Injects a basket in the list. */
@@ -120,12 +127,18 @@
         template.querySelector('.name p').innerHTML = product.name;
         template.querySelector('.weight p').innerHTML = product.weight + 'g';
         template.querySelector('.available').innerHTML =  totalAvailable + ' disponibles.';
+        template.querySelector('.product-id').value = product.id;
+
+        // Hack for laravel post submit.
+        template.querySelector('.product-id').setAttribute('name', 'products[' + product.id + '][id]');
+        template.querySelector('.quantity').setAttribute('name', 'products[' + product.id + '][quantity]');
 
         /** Update the quantity of the template. */
         const updateQuantity = quantity => {
             template.querySelector('.quantity').value = quantity;
         };
 
+        updateQuantity(0);
 
         /**
          * Finds a product with the template. Auto-resolve.
@@ -155,6 +168,7 @@
             parent.parentNode.removeChild(parent);
 
             feedChoices();
+            updateWeight();
         });
 
 
@@ -195,6 +209,8 @@
     window.addEventListener('load', () => {
         loadTemplate();
         feedChoices();
+
+        updateWeight();
 
         // Event triggered when the user selects a product in his basket.
         document.getElementById('add-basket').addEventListener('click', () => {
