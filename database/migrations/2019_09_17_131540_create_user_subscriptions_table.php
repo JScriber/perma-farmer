@@ -19,6 +19,8 @@ class CreateUserSubscriptionsTable extends Migration
 
             $table->integer('subscription_id')->unsigned();
             $table->integer('user_id')->unsigned();
+
+            $table->integer('basket_id')->unsigned()->nullable();
         });
     }
 

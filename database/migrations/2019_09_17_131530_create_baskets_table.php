@@ -15,11 +15,11 @@ class CreateBasketsTable extends Migration
     {
         Schema::create('baskets', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('status', ['wait_validation', 'validated', 'received']);
+            $table->boolean('validated');
             $table->date('order_date');
             $table->timestamps();
 
-            $table->integer('user_subscription_id')->unsigned();
+            $table->integer('user_subscription_id')->unsigned()->nullable();
 
             // The basket has a crate if it has been validated.
             $table->integer('crate_id')->unsigned()->nullable();
