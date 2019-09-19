@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Basket;
+use App\BasketProduct;
 use App\Role;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -91,17 +92,17 @@ class BasketController extends Controller
                 // Check if the product can be selected.
                 if ($product->quantity - ($product->reserved_quantity + $quantity) >= 0) {
 
-                    // Associate to the basket.
-                    $basket->products()->attach($product->id);
+                    if ($product->quantity > 0) {
+                        $basketProduct = new BasketProduct();
+                        $basketProduct->quantity = $quantity;
+                        $basketProduct->product()->associate($product);
+                        $basketProduct->basket()->associate($basket);
+                        $basketProduct->save();
+                    }
                 }
-
-                var_dump($product);
-                echo $product['quantity'];
             }
 
-            $basket->save();
-
-//            return redirect()->route('home');
+            return redirect()->route('home');
         } catch (\Exception $exception) {
             return redirect()->back()->withInput();
         }

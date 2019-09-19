@@ -17,12 +17,12 @@ class Basket extends Model
     protected $fillable = ['status', 'order_date', 'user_subscription_id', 'crate_id'];
 
     /**
-     * {@link BasketProduct} in the {@link Basket}.
+     * {@link Product Products} in the {@link Basket}.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function basketProducts()
+    public function products()
     {
-        return $this->hasMany(BasketProduct::class, 'basket_id');
+        return $this->hasMany(Product::class);
     }
 
     /**
