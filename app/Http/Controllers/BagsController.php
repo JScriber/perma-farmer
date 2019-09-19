@@ -26,12 +26,12 @@ class BagsController extends Controller
     public function index(Request $request)
     {
         $request->user()->authorizeRole(Role::adminRole());
-        $bags = Bag::latest()->paginate(10);
+        $bags = Bag::all()->all();
         $clients = UserSubscription::all()->all();
         return view('bags.index',[
             "bags"=>$bags,
             "subscriptions"=>$clients
-        ])->with('i', (request()->input('page', 1) - 1) * 10);
+        ]);
 
     }
 

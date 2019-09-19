@@ -47,7 +47,7 @@
                                 }
                             }
                         ?>>
-                        {{ $subscription->client->firstname . " " . $subscription->client->lastname }}</option>
+                        {{ $subscription->user->firstname . " " . $subscription->user->lastname }}</option>
                     @endforeach
                 </select>
             </div>

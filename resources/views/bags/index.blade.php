@@ -27,12 +27,12 @@
         </tr>
         @foreach ($bags as $bag)
         <tr>
-            <td>{{ ++$i }}</td>
+            <td>{{ $bag->id }}</td>
             <td>{{ $bag->reference }}</td>
-            @if(!isset($bag->userSubscription->client))
+            @if(!isset($bag->UserSubscription->user))
             <td></td>
             @else
-            <td>{{ $bag->userSubscription->client->firstname }}</td>
+            <td>{{ $bag->UserSubscription->user->firstname .' '. $bag->UserSubscription->user->lastname }}</td>
             @endif
 
             <td>
@@ -49,7 +49,5 @@
         </tr>
         @endforeach
     </table>
-
-    {!! $bags->links() !!}
 
 @endsection
