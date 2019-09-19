@@ -38,19 +38,30 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                        @if(Auth::user())
+                            @if(Auth::user()->role->name =="Membre du staff")
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/admin') }}">{{ __('Admin') }}</a>
+                                </li>
+                            @elseif(Auth::user()->role->name=="Client simple")
+                            <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/') }}">{{ __('Mon Compte') }}</a>
+                                </li>
+                            @endif
+                        @endif
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Se connecter') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('S\'inscrire') }}</a>
                                 </li>
                             @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->firstname .' '.Auth::user()->lastname }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -66,6 +77,7 @@
                                 </div>
                             </li>
                         @endguest
+                        <!-- user()->authorizeRole(Role::adminRole()) -->
                     </ul>
                 </div>
             </div>
