@@ -23,16 +23,19 @@ class BasketTableSeeder extends Seeder
         $basket->userSubscription()->associate(App\UserSubscription::all()->first());
         $basket->save();
 
-        $product1 = new BasketProduct();
-        $product1->quantity = 1;
-        $product1->product()->associate(Product::all()->find(1));
-        $product1->basket()->associate($basket);
-        $product1->save();
+        $this->attachProduct($basket, 1);
+        $this->attachProduct($basket, 2);
+    }
 
-        $product2 = new BasketProduct();
-        $product2->quantity = 4;
-        $product2->product()->associate(Product::all()->find(2));
-        $product2->basket()->associate($basket);
-        $product2->save();
+    /**
+     * Attaches a product to the basket.
+     * @param $basket
+     * @param $product_id
+     */
+    private function attachProduct($basket, $product_id)
+    {
+        $product = Product::all()->find($product_id);
+        $product->basket()->associate($basket);
+        $product->save();
     }
 }
