@@ -31,24 +31,38 @@ class OrderController extends Controller
         $request->user()->authorizeRole(Role::adminRole());
 
         $tab = Array();
+        $product = Array();
 
         $orders = Basket::all()->where("status","wait_validation");
 
+        
+
+
         foreach($orders as $order){
-            
+
+            // foreach($order->products->groupBy("product_type_id") as $products ){
+            //     foreach($products as $k => $v){
+            //         array_push($product,Array( $products[$k][0]=> $products[$k]->count()));
+            //     }
+            // }
+
+
+
             array_push($tab,Array(
+
                 "client" => $order->userSubscription->user,
-                "products" => $order,
-                "product" => $order->userSubscription->subscription
+                "type" => $order->userSubscription->subscription,
+                "products" => $product
 
             ));
-
-
         }
 
-        $client;
-        $content;
-        $basketType;
+
+        var_dump($tab[0]["products"]->id);
+
+        // $client;
+        // $content;
+        // $basketType;
 
 
         // return view('order.index',[
