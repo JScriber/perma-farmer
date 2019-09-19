@@ -19,6 +19,15 @@
     @endif
 
 
+    <table class="table table-bordered">
+        <tr>
+            <th>Résumé</th>
+            <th>client</th>
+            <th>Type de pannier</th>
+            <th width="280px">Action</th>
+        </tr>
+        
+    </table>
 
 
 @endsection

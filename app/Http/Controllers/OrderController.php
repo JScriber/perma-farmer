@@ -31,9 +31,20 @@ class OrderController extends Controller
         $request->user()->authorizeRole(Role::adminRole());
 
         $orders = Basket::all()->all();
-        return view('order.index',[
-            "orders"=>$orders
-        ]);
+
+        foreach($orders as $order){
+            var_dump($order->id);
+
+        }
+
+        $client;
+        $content;
+        $basketType;
+
+
+        // return view('order.index',[
+        //     "orders"=>$orders
+        // ]);
     }
 
     /**
