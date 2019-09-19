@@ -31,6 +31,13 @@ Route::get('/admin/stock/modifier','StockController@edit')->name("stockEdit");
 
 Route::get('/admin/stock/modifier/valider','StockController@validEdit')->name("validStockEdit");
 
+// block_bags
 Route::resource('/admin/bags','BagsController');
+
+// block_crates
 Route::resource('/admin/crates','CrateController');
+
+// block_order
+Route::get('/admin/order','OrderController@index')->name("order");
+Route::get('/admin/order/send','OrderController@send')->name("orderSend");
 

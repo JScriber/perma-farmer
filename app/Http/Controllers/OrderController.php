@@ -3,18 +3,49 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Basket;
+use App\User;
+use App\Role;
 
 class OrderController extends Controller
 {
+
+    // /**
+    //  * Create a new controller instance.
+    //  *
+    //  * @return void
+    //  */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $request->user()->authorizeRole(Role::adminRole());
+
+        $orders = Basket::all()->all();
+        return view('order.index',[
+            "orders"=>$orders
+        ]);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function send(Request $request)
+    {
+        return view("order.send");
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -34,7 +65,6 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
