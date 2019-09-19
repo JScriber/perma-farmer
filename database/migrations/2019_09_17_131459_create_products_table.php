@@ -15,11 +15,9 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
-            $table->float('weight');
-            $table->integer('quantity');
-            $table->integer('reserved_quantity');
-            $table->timestamp('created_at')->nullable();
+
+            $table->integer('product_type_id')->unsigned();
+            $table->integer('basket_id')->unsigned()->nullable();
         });
     }
 

@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             SubscriptionsTableSeeder::class,
             BagTableSeeder::class,
             CrateTableSeeder::class,
-            ProductTableSeeder::class,
+            ProductTypeTableSeeder::class,
             CreditCardTableSeeder::class,
 
             UserTableSeeder::class,

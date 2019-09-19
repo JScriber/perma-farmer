@@ -3,25 +3,32 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Class Product.
+ * @package App
+ */
 class Product extends Model
 {
 
     public $timestamps = false;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * Related {@link Basket}.
+     * @return BelongsTo
      */
-    protected $fillable = array('name', 'weight', 'quantity', 'reserved_quantity');
+    public function basket()
+    {
+        return $this->belongsTo(Basket::class);
+    }
 
     /**
-     * Related {@link Basket baskets}.
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * Product type.
+     * @return BelongsTo
      */
-    public function basketProducts()
+    public function productType()
     {
-        return $this->hasMany(BasketProduct::class);
+        return $this->belongsTo(ProductType::class);
     }
 }
