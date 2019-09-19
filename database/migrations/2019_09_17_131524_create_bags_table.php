@@ -16,8 +16,8 @@ class CreateBagsTable extends Migration
         Schema::create('bags', function (Blueprint $table) {
             $table->increments('id');
             $table->string('reference')->unique();
-
             $table->integer('user_subscription_id')->unsigned()->nullable();
+            $table->timestamp('created_at')->nullable();
         });
     }
 

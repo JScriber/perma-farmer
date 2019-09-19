@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->float('weight');
             $table->integer('quantity');
             $table->integer('reserved_quantity');
+            $table->timestamp('created_at')->nullable();
         });
     }
 
