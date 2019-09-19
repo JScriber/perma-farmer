@@ -33,3 +33,6 @@ Route::get('/admin/stock/modifier','StockController@edit')->name("stockEdit");
 
 Route::get('/admin/stock/modifier/valider','StockController@validEdit')->name("validStockEdit");
 
+Route::resource('/admin/bags','BagsController');
+Route::resource('/admin/crates','CrateController');
+

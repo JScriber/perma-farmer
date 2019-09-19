@@ -16,6 +16,7 @@ class CreateCratesTable extends Migration
         Schema::create('crates', function (Blueprint $table) {
             $table->increments('id');
             $table->string('reference')->unique();
+            $table->timestamp('created_at')->nullable();
         });
     }
 
