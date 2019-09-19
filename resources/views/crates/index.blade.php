@@ -43,6 +43,5 @@
         @endforeach
     </table>
 
-    {!! $crates->links() !!}
 
 @endsection

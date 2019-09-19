@@ -25,10 +25,10 @@ class CrateController extends Controller
     public function index(Request $request)
     {
         $request->user()->authorizeRole(Role::adminRole());
-        $crate = Crate::latest()->paginate(10);
+        $crate = Crate::all()->all();
         return view('crates.index',[
             "crates"=>$crate
-        ])->with('i', (request()->input('page', 1) - 1) * 10);
+        ]);
     }
 
     /**
@@ -65,10 +65,10 @@ class CrateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Crate $crate)
     {
         return view('crates.edit',[
-            "crate"=>$id,
+            "crate"=>$crate ,
         ]);
     }
 
@@ -79,12 +79,12 @@ class CrateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Crate $crate)
     {
         $request->validate([
-            // 'reference' => 'required'
+            'reference' => 'required'
         ]);
-        $id->update($request->all());
+        $crate->update($request->all());
 
         return redirect()->route('crates.index')
                         ->with('success','Le cageot a été mis a jour avec succès');
@@ -96,9 +96,9 @@ class CrateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Crate $crate)
     {
-        $id->delete();
+        $crate->delete();
 
         return redirect()->route('crates.index')
                         ->with('success','Le cageot a été supprimer avec succès');

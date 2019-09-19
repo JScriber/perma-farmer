@@ -30,7 +30,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Reference:</strong>
-                <input type="text" name="reference" class="form-control" placeholder="reference">
+                <input type="text" name="reference" class="form-control" placeholder="reference" required>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
