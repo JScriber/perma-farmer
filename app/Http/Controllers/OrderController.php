@@ -30,10 +30,19 @@ class OrderController extends Controller
     {
         $request->user()->authorizeRole(Role::adminRole());
 
-        $orders = Basket::all()->all();
+        $tab = Array();
+
+        $orders = Basket::all()->where("status","wait_validation");
 
         foreach($orders as $order){
-            var_dump($order->id);
+            
+            array_push($tab,Array(
+                "client" => $order->userSubscription->user,
+                "products" => $order,
+                "product" => $order->userSubscription->subscription
+
+            ));
+
 
         }
 
