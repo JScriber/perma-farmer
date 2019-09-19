@@ -19,6 +19,10 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+Route::resource('panier', 'BasketController');
+Route::resource('compte', 'CompteController');
+
 // Block_stock
 
 Route::get('/admin/stock','StockController@show')->name("stock");
@@ -33,9 +37,3 @@ Route::get('/admin/stock/modifier/valider','StockController@validEdit')->name("v
 
 Route::resource('/admin/bags','BagsController');
 Route::resource('/admin/crates','CrateController');
-
-// Route::get('/panier', function () {
-//     return view('basket');
-// });
-
-Route::resource('panier', 'BasketController');
