@@ -3,9 +3,9 @@
 use App\Basket;
 use App\BasketProduct;
 use App\Product;
+use App\UserSubscription;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class BasketTableSeeder extends Seeder
 {
@@ -16,12 +16,17 @@ class BasketTableSeeder extends Seeder
      */
     public function run()
     {
+        $subscription = UserSubscription::all()->first();
+
         $basket = new Basket();
 
-        $basket->status = 'wait_validation';
+        $basket->validated = false;
         $basket->order_date = Carbon::now();
-        $basket->userSubscription()->associate(App\UserSubscription::all()->first());
+        $basket->user_subscription_id = $subscription->id;
         $basket->save();
+
+        $subscription->basket_id = $basket->id;
+        $subscription->save();
 
         $product1 = new BasketProduct();
         $product1->quantity = 1;

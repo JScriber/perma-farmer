@@ -60,7 +60,9 @@
 
 <script>
     // All known products.
-    const allProducts = {!! $products !!};
+    let allProducts = {!! $products_available !!};
+
+    const oldSelected = {!! $old_selection !!};
 
     // Max weight in gramme.
     const maxWeight = {!! $max_weight !!};
@@ -70,6 +72,24 @@
 
     // Basket template.
     let templateCopy;
+
+    /** Treats the old data. */
+    function treatOld() {
+        if (oldSelected) {
+            oldSelected.forEach(old => {
+                const product = allProducts.find(p => p.id === old.id);
+                product.quantity += old.quantity;
+
+                const selected = JSON.parse(JSON.stringify(product));
+                selected.selectedQuantity = old.quantity;
+
+                selectedProducts.push(selected);
+                injectBasket(selected);
+            });
+
+            console.log(oldSelected);
+        }
+    }
 
     /** Loads the template. */
     function loadTemplate() {
@@ -120,7 +140,7 @@
     function injectBasket(product) {
         const template = templateCopy.cloneNode(true);
 
-        const totalAvailable = product.quantity - product.reserved_quantity;
+        const totalAvailable = product.quantity;
 
         // Feed the data.
         template.setAttribute('data-id', product.id);
@@ -138,8 +158,6 @@
             template.querySelector('.quantity').value = quantity;
         };
 
-        updateQuantity(0);
-
         /**
          * Finds a product with the template. Auto-resolve.
          * @param el
@@ -152,12 +170,17 @@
         };
 
         /** Updates the available count. */
-        const updateAvailable = () => {
+        const updateAvailable = (quantity) => {
             const selected = findProductFromTemplate();
-            const available = selected.quantity - selected.reserved_quantity;
+            const available = selected.quantity - quantity;
 
             template.querySelector('.available').innerHTML =  available + ' disponibles.';
         };
+
+        // Initial call.
+        updateQuantity(product.selectedQuantity);
+        updateAvailable(product.selectedQuantity);
+        updateWeight();
 
         // Delete behaviour.
         template.querySelector('.delete').addEventListener('click', function () {
@@ -177,13 +200,12 @@
 
             const selectedProduct = findProductFromTemplate();
 
-            if (selectedProduct.selectedQuantity > 0) {
+            if (selectedProduct.selectedQuantity > 1) {
                 selectedProduct.selectedQuantity --;
-                selectedProduct.reserved_quantity --;
             }
 
             updateQuantity(selectedProduct.selectedQuantity);
-            updateAvailable();
+            updateAvailable(selectedProduct.selectedQuantity);
             updateWeight();
         });
 
@@ -193,13 +215,13 @@
 
             const selectedProduct = findProductFromTemplate();
 
-            if (selectedProduct.quantity - selectedProduct.reserved_quantity > 0) {
+            if (selectedProduct.quantity - selectedProduct.selectedQuantity > 0 &&
+                totalWeight() + selectedProduct.weight < maxWeight) {
                 selectedProduct.selectedQuantity ++;
-                selectedProduct.reserved_quantity ++;
             }
 
             updateQuantity(selectedProduct.selectedQuantity);
-            updateAvailable();
+            updateAvailable(selectedProduct.selectedQuantity);
             updateWeight();
         });
 
@@ -208,7 +230,11 @@
 
     window.addEventListener('load', () => {
         loadTemplate();
+        treatOld();
+
+        allProducts = allProducts.filter(p => p.quantity > 0);
         feedChoices();
+
 
         updateWeight();
 
@@ -219,12 +245,14 @@
             if (selectedID !== undefined) {
                 let selected = allProducts.find(p => p.id === Number.parseInt(selectedID));
                 selected = JSON.parse(JSON.stringify(selected));
-                selected.selectedQuantity = 0;
+                selected.selectedQuantity = 1;
 
-                selectedProducts.push(selected);
+                if (totalWeight() + selected.weight < maxWeight) {
+                    selectedProducts.push(selected);
 
-                feedChoices();
-                injectBasket(selected);
+                    feedChoices();
+                    injectBasket(selected);
+                }
             }
         });
     });

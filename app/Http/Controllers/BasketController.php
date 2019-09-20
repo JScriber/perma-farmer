@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Basket;
+use App\BasketProduct;
 use App\Role;
+use App\UserSubscription;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use App\Product;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Validator;
-use function GuzzleHttp\Promise\exception_for;
 
 class BasketController extends Controller
 {
@@ -34,9 +34,26 @@ class BasketController extends Controller
     {
         $request->user()->authorizeRole(Role::clientRole());
 
-        $products = Product::all();
+        $productsAvailable = Product::all()->all();
+
+        $oldSelection = array();
+
+        if ($request->user()->userSubscriptions[0]->basket_id != null)
+        {
+            $oldBasketProducts = $request->user()->userSubscriptions[0]->basket->basketProducts;
+
+            foreach ($oldBasketProducts as $product)
+            {
+                array_push($oldSelection, [
+                    'id' => $product->product_id,
+                    'quantity' => $product->quantity
+                ]);
+            }
+        }
+
         return view('panier.index', [
-            'products' => $products,
+            'products_available' => json_encode($productsAvailable),
+            'old_selection' => json_encode($oldSelection),
             'max_weight' => $request->user()->userSubscriptions[0]->subscription->max_weight
         ]);
     }
@@ -61,48 +78,96 @@ class BasketController extends Controller
     {
         $request->user()->authorizeRole(Role::clientRole());
 
+        $editMode = $request->user()->userSubscriptions[0]->basket_id != null;
+
         try {
             $this->validate($request, [
                 'products.*.id' => 'required',
                 'products.*.quantity' => 'required',
             ]);
 
-            // Create the basket.
-            $basket = new Basket();
+            if ($editMode)
+            {
+                if (!$request->user()->userSubscriptions[0]->basket->validated)
+                {
+                    $basket = $request->user()->userSubscriptions[0]->basket;
+                    $basket->order_date = Carbon::now();
 
-            $basket->status = 'wait_validation';
-            $basket->order_date = Carbon::now();
-            $basket->userSubscription()->associate($request->user()->userSubscriptions[0]);
+                    // Detach all.
+                    $basketProducts = $basket->basketProducts;
 
-            // Pre-persist.
-            $basket->save();
+                    foreach ($basketProducts as $basketProduct)
+                    {
+                        $basketProduct->product->quantity += $basketProduct->quantity;
+                        $basketProduct->product->save();
 
-            // Process the basket.
-            foreach ($request['products'] as $productDto) {
+                        $basketProduct->delete();
+                    }
 
-                // Find the product.
-                $product = Product::all()->find(intval($productDto['id']));
-                $quantity = intval($productDto['quantity']);
+                    // Attach the products.
+                    $this->attachProducts($request['products'], $basket);
 
-                if ($product == null) {
+                    $basket->save();
+                } else {
                     return redirect()->back()->withInput();
                 }
+            } else
+            {
+                // Create the basket.
+                $basket = new Basket();
 
-                // Check if the product can be selected.
-                if ($product->quantity - ($product->reserved_quantity + $quantity) >= 0) {
+                $basket->validated = false;
+                $basket->order_date = Carbon::now();
+                $basket->user_subscription_id = $request->user()->userSubscriptions[0]->id;
 
-                    // Associate to the basket.
-                    $basket->products()->attach($product->id);
-                }
+                // Pre-persist.
+                $basket->save();
 
-                var_dump($product);
-                echo $product['quantity'];
+                // Attach the products.
+                $this->attachProducts($request['products'], $basket);
+
+                $basket->save();
+
+                // Attach the basket to the user.
+                $subscription = UserSubscription::all()->find($request->user()->userSubscriptions[0]->id);
+
+                $subscription->basket_id = $basket->id;
+                $subscription->save();
             }
-
-            $basket->save();
 
         } catch (\Exception $exception) {
             return redirect()->back()->withInput();
+        }
+    }
+
+    /**
+     * Attach the products to the basket.
+     * @param $productsDto
+     * @param $basket
+     */
+    private function attachProducts($productsDto, $basket)
+    {
+        // Process the basket.
+        foreach ($productsDto as $productDto) {
+
+            // Find the product.
+            $product = Product::all()->find(intval($productDto['id']));
+            $quantity = intval($productDto['quantity']);
+
+            if ($product != null) {
+                // Check if the product can be selected.
+                if ($product->quantity > 0 && ($product->quantity - $quantity) >= 0) {
+
+                    $basketProduct = new BasketProduct();
+                    $basketProduct->quantity = $quantity;
+                    $basketProduct->product()->associate($product);
+                    $basketProduct->basket()->associate($basket);
+                    $basketProduct->save();
+
+                    $product->quantity -= $quantity;
+                    $product->save();
+                }
+            }
         }
     }
 

@@ -3,25 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-/**
- * Class BasketProduct. Association betwen basket and product.
- * @package App
- */
 class BasketProduct extends Model
 {
+
     public $timestamps = false;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['quantity'];
 
     /**
-     * {@link Basket} which owns the {@link BasketProduct}.
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * Baskets that owns the basket product.
+     * @return BelongsTo
      */
     public function basket()
     {
@@ -29,8 +22,8 @@ class BasketProduct extends Model
     }
 
     /**
-     * {@link Product} associated.
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * Product associated
+     * @return BelongsTo
      */
     public function product()
     {

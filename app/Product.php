@@ -3,22 +3,23 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * Class Product.
+ * @package App
+ */
 class Product extends Model
 {
 
     public $timestamps = false;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = array('name', 'weight', 'quantity', 'reserved_quantity');
+    protected $fillable = array('name', 'weight', 'quantity');
 
     /**
-     * Related {@link Basket baskets}.
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * Product type.
+     * @return HasMany
      */
     public function basketProducts()
     {
