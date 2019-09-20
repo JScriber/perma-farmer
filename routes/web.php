@@ -15,14 +15,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::get('/admin', function () {
+    return view('admin');
+});
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::resource('panier', 'BasketController');
 Route::resource('compte', 'CompteController');
 
+Route::post('/panier/report', 'BasketController@report');
 // Block_stock
 
 Route::get('/admin/stock','StockController@show')->name("stock");
@@ -35,5 +37,12 @@ Route::get('/admin/stock/modifier','StockController@edit')->name("stockEdit");
 
 Route::get('/admin/stock/modifier/valider','StockController@validEdit')->name("validStockEdit");
 
+// block_bags
 Route::resource('/admin/bags','BagsController');
-Route::resource('/admin/crates','CrateController');
+
+// block_order
+Route::get('/admin/order','OrderController@index')->name("order");
+Route::get('/admin/order/send','OrderController@send')->name("orderSend");
+Route::get('/admin/order/send/validate','OrderController@send')->name("orderSendValidate");
+Route::post('/admin/order/validate','OrderController@valid')->name("orderValidate");
+

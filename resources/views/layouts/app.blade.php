@@ -24,7 +24,6 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">Perma farmer</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -32,25 +31,41 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/') }}">{{ __('Panier') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/') }}">{{ __('Contact') }}</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                        @if(Auth::user())
+                            @if(Auth::user()->role->name =="Membre du staff")
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/admin') }}">{{ __('Admin') }}</a>
+                                </li>
+                            @elseif(Auth::user()->role->name=="Client simple")
+                            <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/') }}">{{ __('Mon Compte') }}</a>
+                                </li>
+                            @endif
+                        @endif
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Se connecter') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('S\'inscrire') }}</a>
                                 </li>
                             @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->firstname .' '.Auth::user()->lastname }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -70,10 +85,28 @@
                 </div>
             </div>
         </nav>
-
-        <main class="container">
             @yield('content')
-        </main>
+        <footer>
+            <hr>
+            <div class="liste-contact">
+                <div class="unit-contact">
+                    <div class="logo-footer" id="logo-footer-1"></div>
+                    <div class="text" id="text-footer-1">Horraire du mardi au samedi de 14h à 20h</div>
+                </div>
+                <div class="unit-contact">
+                    <div class="logo-footer" id="logo-footer-2"></div>
+                    <div class="text" id="text-footer-2">permafarmer@gmail.com</div>
+                </div>
+                <div class="unit-contact" id="unit-contact-3">
+                    <div class="logo-footer" id="logo-footer-3"></div>
+                    <div class="text" id="text-footer-3">0555034355</div>
+                </div>
+                <div class="unit-contact">
+                    <div class="logo-footer" id="logo-footer-4"></div>
+                    <div class="text" id="text-footer-4">Perma-Farmer 13 rue de la ferme 35000 RENNES </div>
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 </html>

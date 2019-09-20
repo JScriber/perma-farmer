@@ -14,13 +14,13 @@ class SubscriptionsTableSeeder extends Seeder
     {
         DB::table('subscriptions')->insert([
             'name' => 'Petit panier',
-            'max_weight' => 2.5,
+            'max_weight' => 2500,
             'price' => 12.5
         ]);
 
         DB::table('subscriptions')->insert([
             'name' => 'Gros panier',
-            'max_weight' => 7,
+            'max_weight' => 7000,
             'price' => 24.9
         ]);
     }
