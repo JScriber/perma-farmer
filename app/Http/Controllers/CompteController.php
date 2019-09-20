@@ -7,6 +7,7 @@ use App\CreditCard;
 use App\Subscription;
 use App\UserSubscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Role;
 
 class CompteController extends Controller
@@ -72,6 +73,11 @@ class CompteController extends Controller
         return view('compte.edit',[
             "user"=> $request->user(),
             "subscriptions"=> $subscriptions,
+            'cards' => [
+                'MasterCard',
+                'Visa',
+                'American Express'
+            ]
         ], compact('compte'));
     }
 
@@ -82,25 +88,61 @@ class CompteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user, $id)
+    public function update(Request $request)
     {
+
         $request->validate([
+            'id'=>'required',
             'firstname'=>'required',
             'lastname'=>'required',
             'email'=>'required',
-            'password'=>'required',
-            'owner'=>'required',
-            'type'=>'required',
+            'card_owner'=>'required',
+            'card_type'=>'required',
             'card_number'=>'required',
-            'crypto'=>'required',
-            'expiration_date'=>'required'
+            'card_crypto'=>'required',
+            'card_expiration'=>'required',
+            'subscription'=>'required'
         ]);
 
-        User::find($id)->update($request->all());
 
-        return view('compte.index');
-        // return redirect()->route('compte.index')
-        // ->with('success', 'Compte mis à jour.');
+        $user = User::find($request->id);
+
+        $newPassword = null;
+        if(($request->password == $request->password_confirm)){
+            $newPassword=$request->password;
+        }
+
+        if($newPassword != null){
+            $user->update([
+                "password"=>Hash::make($newPassword)
+            ]);
+        }
+
+        $user->update([
+            "firstname"=>$request->firstname,
+            "lastname"=>$request->lastname,
+            "email"=>$request->email
+        ]);
+
+        $user->creditCard->update([
+            "owner"=>$request->card_owner,
+            "type"=>$request->card_type,
+            "card_number"=>$request->card_number,
+            "crypto"=>$request->card_crypto,
+            "expiration_date"=>$request->card_expiration           
+        ]);
+
+        $subscription = Subscription::find(intval($request->subscription));
+
+
+        if ($subscription != null)
+        {
+            $user->userSubscriptions[0]->subscription()->associate($subscription);
+            $user->userSubscriptions[0]->save();
+        }
+
+        return redirect()->route('compte.index')
+        ->with('success', 'Compte mis à jour.');
      }
 
     /**

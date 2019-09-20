@@ -182,6 +182,7 @@
                                         <strong>{{ $errors->first('card_expiration_date') }}</strong>
                                     </span>
                                 @endif
+                                
                             </div>
                         </div>
 
