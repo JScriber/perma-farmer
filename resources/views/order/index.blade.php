@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container">
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
@@ -47,4 +48,5 @@
     @else
         <p>Aucune commande en attente de validation.</p>
     @endif
+</div>
 @endsection
