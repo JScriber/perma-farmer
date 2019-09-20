@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Class UserSubscription
@@ -18,20 +21,11 @@ class UserSubscription extends Model
      *
      * @var array
      */
-    protected $fillable = ['pro_account'];
-
-    /**
-     * {@link Basket} made by the user.
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function baskets()
-    {
-        return $this->hasMany(Basket::class);
-    }
+    protected $fillable = ['pro_account', 'basket_id'];
 
     /**
      * Bag owned by the {@link Client}.
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function bags()
     {
@@ -40,7 +34,7 @@ class UserSubscription extends Model
 
     /**
      * Chosen account {@link Subscription}.
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function subscription()
     {
@@ -49,10 +43,19 @@ class UserSubscription extends Model
 
     /**
      * {@link User} who has the {@link Subscription}.
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Basket.
+     * @return HasOne
+     */
+    public function basket()
+    {
+        return $this->hasOne(Basket::class, 'user_subscription_id', 'basket_id');
     }
 }

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Product.
@@ -14,21 +15,14 @@ class Product extends Model
 
     public $timestamps = false;
 
-    /**
-     * Related {@link Basket}.
-     * @return BelongsTo
-     */
-    public function basket()
-    {
-        return $this->belongsTo(Basket::class);
-    }
+    protected $fillable = array('name', 'weight', 'quantity');
 
     /**
      * Product type.
-     * @return BelongsTo
+     * @return HasMany
      */
-    public function productType()
+    public function basketProducts()
     {
-        return $this->belongsTo(ProductType::class);
+        return $this->hasMany(BasketProduct::class);
     }
 }
