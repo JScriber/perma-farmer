@@ -101,7 +101,6 @@ class BasketController extends Controller
 
             $basket->save();
 
-//            return redirect()->route('home');
         } catch (\Exception $exception) {
             return redirect()->back()->withInput();
         }

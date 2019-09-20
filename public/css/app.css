@@ -1,5 +1,355 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
+@font-face {
+  font-family: "perpetua";
+  src: url(/fonts/PerpetuaTitlingMTLight2.ttf?8f92f94b388b2a4be443d56eba0d3504) format("woff2");
+}
+
+@font-face {
+  font-family: "futuraBook";
+  src: url("/fonts/Futura Book font.ttf?f9f02ed05aa86534c3842d44cb20d6c4") format("woff2");
+}
+
+@font-face {
+  font-family: "futuraMedium";
+  src: url("/fonts/futura medium bt.ttf?ee64fb9d3f1ba2333e1b489283925bce") format("woff2");
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content .block {
+  width: 100%;
+  display: flex;
+}
+
+.main-content #block-1 .title-container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  color: #707070;
+}
+
+.main-content #block-1 .title-container .logo-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content #block-1 .title-container .logo-container .logo-welcome {
+  background-image: url(/images/Perma-Farmer.png?490c5d170be35bbd114a4b91d8d62b2e);
+  height: 208px;
+  width: 281px;
+  margin: auto;
+  background-size: 300px;
+  background-repeat: no-repeat;
+  background-position: top -11px left -11px;
+}
+
+.main-content #block-1 .title-container .logo-container .text-logo-welcome {
+  margin-bottom: 5px;
+  margin-top: 30px;
+  font-family: "futuraBook";
+}
+
+@media screen and (max-width: 550px) {
+  .main-content #block-1 .title-container .logo-container .text-logo-welcome {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+.main-content #block-1 .title-container .logo-container hr {
+  border: 1px solid #707070;
+  width: 200px;
+  margin-bottom: 50px;
+}
+
+.main-content #block-1 .title-container .title-welcome {
+  color: #707070;
+  font-family: "perpetua";
+  font-size: 25px;
+  margin: auto;
+}
+
+.main-content #block-2 {
+  padding-top: 35px;
+}
+
+.main-content #block-2 .card-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 860px;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 1230px) {
+  .main-content #block-2 .card-container {
+    height: 1200px;
+    margin-bottom: 100px;
+  }
+}
+
+.main-content #block-2 .card-container > div {
+  display: flex;
+  margin: auto;
+  height: 300px;
+  justify-content: space-between;
+  width: 1200px;
+}
+
+@media screen and (max-width: 1230px) {
+  .main-content #block-2 .card-container > div {
+    flex-direction: column;
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    height: 510px;
+  }
+}
+
+.main-content #block-2 .card-container > div .card-image {
+  box-shadow: 40px 40px 0px rgba(92, 134, 96, 0.85);
+  position: relative;
+  background-image: url(/images/ferme.png?47507af27c690501e45f6455f6dc5786);
+  height: 100%;
+  width: 533px;
+  min-width: 533px;
+  z-index: 2;
+  background-size: 533px;
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 1230px) {
+  .main-content #block-2 .card-container > div .card-image {
+    box-shadow: none;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .main-content #block-2 .card-container > div .card-image {
+    width: 430px;
+    min-width: 0;
+    background-size: 430px;
+  }
+}
+
+@media screen and (max-width: 1230px) {
+  .main-content #block-2 .card-container > div .card-image {
+    margin-top: 50px;
+  }
+}
+
+.main-content #block-2 .card-container > div .card-text-container {
+  width: 533px;
+  min-width: 533px;
+  display: flex;
+  padding-left: 90px;
+}
+
+@media screen and (max-width: 1230px) {
+  .main-content #block-2 .card-container > div .card-text-container {
+    width: 430px;
+    min-width: 0;
+    padding-left: 0;
+  }
+}
+
+.main-content #block-2 .card-container > div .card-text-container .card-text {
+  display: flex;
+  flex-direction: column;
+  height: 120px;
+  margin: auto;
+}
+
+.main-content #block-2 .card-container > div .card-text-container .card-text .card-paragraph-1 {
+  padding-bottom: 20px;
+}
+
+.main-content #block-2 .card-container > div .card-text-container .card-text div {
+  color: #000000;
+  font-family: "futuraBook";
+  font-weight: bold;
+}
+
+@media screen and (max-width: 1230px) {
+  .main-content #block-2 .card-container .card-bottom {
+    flex-direction: column-reverse;
+  }
+}
+
+.main-content #block-2 .card-container .card-bottom .card-image {
+  box-shadow: -40px 40px 0px #547257;
+  background-image: url(/images/poules.jpg?75a8d8b11bea47963a8de3326bad56e5);
+}
+
+@media screen and (max-width: 1230px) {
+  .main-content #block-2 .card-container .card-bottom .card-image {
+    box-shadow: none;
+  }
+}
+
+.main-content #block-2 .card-container .card-bottom .card-text-container {
+  padding-right: 90px;
+}
+
+@media screen and (max-width: 550px) {
+  .main-content #block-2 .card-container .card-bottom .card-text-container {
+    padding-right: 0;
+  }
+}
+
+.main-content #block-3 {
+  background-color: rgba(92, 134, 96, 0.85);
+  display: flex;
+}
+
+.main-content #block-3 .offer-product {
+  height: 600px;
+  width: 1200px;
+  display: flex;
+  margin: auto;
+}
+
+@media screen and (max-width: 1230px) {
+  .main-content #block-3 .offer-product {
+    flex-direction: column;
+    height: 1300px;
+  }
+}
+
+.main-content #block-3 .offer-product .title {
+  text-align: center;
+  color: black;
+  font-family: "perpetua";
+  font-size: 25px;
+}
+
+.main-content #block-3 .offer-product .card {
+  padding: 10px;
+  height: 170px;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.main-content #block-3 .offer-product .text {
+  color: #000000;
+  font-family: "futuraBook";
+  font-weight: bold;
+}
+
+.main-content #block-3 .offer-product .offer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.main-content #block-3 .offer-product .offer .offer-liste {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.main-content #block-3 .offer-product .offer .offer-liste .offer-image {
+  height: 150px;
+  width: 150px;
+  background-size: 150px;
+  background-repeat: no-repeat;
+}
+
+.main-content #block-3 .offer-product .offer .offer-liste #smallBasket {
+  background-image: url(/images/Paniers_BIO_m.jpg?c755e2e5c27dee56d1373ff6c65fa08c);
+}
+
+.main-content #block-3 .offer-product .offer .offer-liste #bigBasket {
+  background-image: url(/images/panier-grand.jpg?45726dfb96ac82f6ed85b337b6ef8b95);
+  background-position: 0 24px;
+}
+
+.main-content #block-3 .offer-product .offer .offer-liste .offer-text {
+  color: #000000;
+  font-family: "futuraBook";
+  font-weight: bold;
+  width: 194px;
+  height: 70px;
+  margin: auto;
+}
+
+.main-content #block-3 .offer-product .product {
+  flex: 1;
+}
+
+.main-content #block-3 .offer-product .product .card {
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  width: 100%;
+  margin: 0;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 30px;
+  padding-bottom: 16px;
+}
+
+.main-content #block-3 .offer-product .product .card .unit-product {
+  width: 150px;
+  height: 130px;
+}
+
+.main-content #block-3 .offer-product .product .card .unit-product .text {
+  text-align: center;
+}
+
+.main-content #block-3 .offer-product .product .card .unit-product .img-product {
+  height: 105px;
+  width: 150px;
+  background-repeat: no-repeat;
+  background-size: 150px;
+}
+
+.main-content #block-3 .offer-product .product .card .unit-product #img-1 {
+  background-image: url(/images/tomate.jpg?191042dc22377cb64733f59546e3e671);
+}
+
+.main-content #block-3 .offer-product .product .card .unit-product #img-2 {
+  background-image: url(/images/radis.jpg?ae810c8078dfdf00f205c4afd757c2d4);
+}
+
+.main-content #block-3 .offer-product .product .card .unit-product #img-3 {
+  background-image: url(/images/abricot.jpg?2d76b8404ad400fd29a4156ca3e20ab8);
+}
+
+.main-content #block-3 .offer-product .product .card .unit-product #img-4 {
+  background-image: url(/images/carotte.jpg?e843031eb644a37edc197564ad655ed0);
+}
+
+.main-content #block-3 .offer-product .product .card .unit-product #img-5 {
+  background-image: url(/images/salade.jpg?01d89c8ab907dc288feb3743789bc1aa);
+}
+
+.main-content #block-3 .offer-product .product .card .unit-product #img-6 {
+  background-image: url(/images/framboise.jpg?a56e2a06c52b8af3c9c8ae9e5279aefd);
+}
+
+.main-content #block-3 .offer-product .product .card .unit-product #img-7 {
+  background-image: url(/images/patate.jpg?0483726aaa48ec101b73ea1c27f7db96);
+}
+
+.main-content #block-3 .offer-product .product .card .unit-product #img-8 {
+  background-image: url(/images/fraises.jpg?bf3c5c996304a784c19fd9117791ae3d);
+}
+
+.main-content #block-3 .offer-product .product .card .unit-product #img-9 {
+  background-image: url(/images/haricot.jpg?151cd20cf49f9d97c246413233f33be2);
+}
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -11,7 +361,7 @@
   --blue: #3490dc;
   --indigo: #6574cd;
   --purple: #9561e2;
-  --pink: #f66D9b;
+  --pink: #f66d9b;
   --red: #e3342f;
   --orange: #f6993f;
   --yellow: #ffed4a;
@@ -540,7 +890,7 @@ mark,
 
 code {
   font-size: 87.5%;
-  color: #f66D9b;
+  color: #f66d9b;
   word-break: break-word;
 }
 
@@ -10644,12 +10994,6 @@ a.text-dark:focus {
   }
 }
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-  margin-bottom: 20px;
-}
-
 html,
 body {
   background-color: #fff;
@@ -10698,7 +11042,112 @@ body {
   text-transform: uppercase;
 }
 
+.nav-link {
+  font-family: "futuraBook";
+  color: #000000 !important;
+}
+
+.nav-link:hover {
+  color: #838383 !important;
+}
+
 .m-b-md {
   margin-bottom: 30px;
+}
+
+footer {
+  background-color: rgba(92, 134, 96, 0.85);
+  display: flex !important;
+  flex-direction: column;
+  height: 200px;
+}
+
+@media screen and (max-width: 1230px) {
+  footer {
+    height: 500px;
+  }
+}
+
+footer hr {
+  border: 1px solid #000000;
+  width: 1000px;
+}
+
+@media screen and (max-width: 1230px) {
+  footer hr {
+    width: 300px;
+  }
+}
+
+footer .liste-contact {
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  width: 1200px;
+}
+
+@media screen and (max-width: 1230px) {
+  footer .liste-contact {
+    flex-direction: column;
+    height: 350px;
+    width: 100%;
+  }
+}
+
+footer .liste-contact .unit-contact {
+  width: 250px;
+  display: flex;
+}
+
+@media screen and (max-width: 1230px) {
+  footer .liste-contact .unit-contact {
+    height: 50px;
+    margin: auto;
+  }
+}
+
+footer .liste-contact .unit-contact .logo-footer {
+  width: 70px;
+  background-size: 45px;
+  background-repeat: no-repeat;
+}
+
+footer .liste-contact .unit-contact #logo-footer-1 {
+  background-image: url(/images/time.png?dbcf864ba9aa43d457ed8b22e4cce4dd);
+}
+
+footer .liste-contact .unit-contact #logo-footer-2 {
+  width: 50px;
+  background-image: url(/images/mail.png?a18496a75147c705d7ebaeea93982059);
+}
+
+footer .liste-contact .unit-contact #logo-footer-3 {
+  width: 50px;
+  background-image: url(/images/phone.png?6d82144ae4dca15f25da13247fa1fd6c);
+}
+
+footer .liste-contact .unit-contact #logo-footer-4 {
+  background-image: url(/images/point.png?ed310f3edaefca919339bae08f85cc27);
+}
+
+footer .liste-contact .unit-contact .text {
+  color: #000000;
+  font-family: "futuraBook";
+  font-weight: bold;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
+
+footer .liste-contact .unit-contact #text-footer-2 {
+  margin: auto;
+}
+
+footer .liste-contact .unit-contact #text-footer-3 {
+  margin: auto;
+}
+
+footer .liste-contact #unit-contact-3 {
+  width: 150px;
 }
 

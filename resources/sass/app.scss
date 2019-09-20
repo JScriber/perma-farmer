@@ -4,18 +4,23 @@
 // Variables
 @import "variables";
 
+// Font
+@import "font";
+
+// Mixin
+@import "mixin";
+
+//Welcome
+@import "welcome";
+
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
-.navbar-laravel {
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-    margin-bottom: 20px;
-}
-html, body {
+html,
+body {
     background-color: #fff;
     color: #636b6f;
-    font-family: 'Nunito', sans-serif;
+    font-family: "Nunito", sans-serif;
     font-weight: 200;
     height: 100vh;
     margin: 0;
@@ -54,11 +59,85 @@ html, body {
     padding: 0 25px;
     font-size: 13px;
     font-weight: 600;
-    letter-spacing: .1rem;
+    letter-spacing: 0.1rem;
     text-decoration: none;
     text-transform: uppercase;
+}
+.nav-link {
+    font-family: "futuraBook";
+    color: $text-color !important;
+    &:hover {
+        color: rgb(131, 131, 131) !important;
+    }
 }
 
 .m-b-md {
     margin-bottom: 30px;
+}
+footer {
+    background-color: rgba(92, 134, 96, 0.85);
+    display: flex !important;
+    flex-direction: column;
+    height: 200px;
+    @include tablet {
+        height: 500px;
+    }
+    hr {
+        border: 1px solid #000000;
+        width: 1000px;
+        @include tablet {
+            width: 300px;
+        }
+    }
+    .liste-contact {
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        width: 1200px;
+        @include tablet {
+            flex-direction: column;
+            height: 350px;
+            width: 100%;
+        }
+        .unit-contact {
+            width: 250px;
+            display: flex;
+            @include tablet {
+                height: 50px;
+                margin: auto;
+            }
+            .logo-footer {
+                width: 70px;
+                background-size: 45px;
+                background-repeat: no-repeat;
+            }
+            #logo-footer-1 {
+                background-image: url("../../public/assets/time.png");
+            }
+            #logo-footer-2 {
+                width: 50px;
+                background-image: url("../../public/assets/mail.png");
+            }
+            #logo-footer-3 {
+                width: 50px;
+                background-image: url("../../public/assets/phone.png");
+            }
+            #logo-footer-4 {
+                background-image: url("../../public/assets/point.png");
+            }
+            .text {
+                @include text;
+                height: max-content;
+            }
+            #text-footer-2 {
+                margin: auto;
+            }
+            #text-footer-3 {
+                margin: auto;
+            }
+        }
+        #unit-contact-3 {
+            width: 150px;
+        }
+    }
 }

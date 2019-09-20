@@ -24,7 +24,6 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">Perma farmer</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -32,7 +31,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/') }}">{{ __('Panier') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/') }}">{{ __('Contact') }}</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -77,15 +81,32 @@
                                 </div>
                             </li>
                         @endguest
-                        <!-- user()->authorizeRole(Role::adminRole()) -->
                     </ul>
                 </div>
             </div>
         </nav>
-
-        <main class="container">
             @yield('content')
-        </main>
+        <footer>
+            <hr>
+            <div class="liste-contact">
+                <div class="unit-contact">
+                    <div class="logo-footer" id="logo-footer-1"></div>
+                    <div class="text" id="text-footer-1">Horraire du mardi au samedi de 14h à 20h</div>
+                </div>
+                <div class="unit-contact">
+                    <div class="logo-footer" id="logo-footer-2"></div>
+                    <div class="text" id="text-footer-2">permafarmer@gmail.com</div>
+                </div>
+                <div class="unit-contact" id="unit-contact-3">
+                    <div class="logo-footer" id="logo-footer-3"></div>
+                    <div class="text" id="text-footer-3">0555034355</div>
+                </div>
+                <div class="unit-contact">
+                    <div class="logo-footer" id="logo-footer-4"></div>
+                    <div class="text" id="text-footer-4">Perma-Farmer 13 rue de la ferme 35000 RENNES </div>
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
