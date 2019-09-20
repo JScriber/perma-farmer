@@ -19,6 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -39,10 +40,6 @@
                                     <a class="nav-link" href="{{ url('/panier') }}">{{ __('Panier') }}</a>
                                 </li>
                             @endif
-                        @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/panier') }}">{{ __('Panier') }}</a>
-                            </li>
                         @endif
                     </ul>
 
@@ -96,6 +93,28 @@
         @if(Auth::user())
             @if(Auth::user()->role->name =="Membre du staff")
                 <div></div>
+            @else
+            <footer>
+                <hr>
+                <div class="liste-contact">
+                    <div class="unit-contact">
+                        <div class="logo-footer" id="logo-footer-1"></div>
+                        <div class="text" id="text-footer-1">Horaire du mardi au samedi de 14h à 20h</div>
+                    </div>
+                    <div class="unit-contact">
+                        <div class="logo-footer" id="logo-footer-2"></div>
+                        <div class="text" id="text-footer-2">permafarmer@gmail.com</div>
+                    </div>
+                    <div class="unit-contact" id="unit-contact-3">
+                        <div class="logo-footer" id="logo-footer-3"></div>
+                        <div class="text" id="text-footer-3">0555034355</div>
+                    </div>
+                    <div class="unit-contact">
+                        <div class="logo-footer" id="logo-footer-4"></div>
+                        <div class="text" id="text-footer-4">Perma-Farmer 13 rue de la ferme 35000 RENNES </div>
+                    </div>
+                </div>
+            </footer>
             @endif
         @else
         <footer>

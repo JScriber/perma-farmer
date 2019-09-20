@@ -1,0 +1,142 @@
+.head {
+    @include flexcolumn;
+    .logo-container {
+        display: flex;
+        flex-direction: column;
+        .logo-welcome {
+            @include background("../../public/assets/Perma-Farmer.png");
+            height: 208px;
+            width: 281px;
+            margin: auto;
+            background-size: 300px;
+            background-repeat: no-repeat;
+            background-position: top -11px left -11px;
+        }
+    }
+    .title-welcome {
+        @include title($title-color);
+        margin: auto;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+}
+.image-basket {
+    @include background("../../public/assets/carotte.jpg");
+    height: 95px;
+    width: 146px;
+    background-size: 145px;
+    background-repeat: no-repeat;
+}
+#list-selected-baskets {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.basket-product {
+    display: flex;
+    height: 150px;
+    width: 335px;
+    .info-product {
+        @include flexcolumn;
+        flex: 1;
+        position: relative;
+        .infos {
+            display: flex !important;
+        }
+        .name {
+            flex: 1;
+            margin-right: 5px;
+            p {
+                margin: 0 !important;
+                width: max-content;
+                @include text;
+            }
+        }
+        .weight {
+            flex: 1;
+            p {
+                margin: 0 !important;
+                width: max-content;
+                @include text;
+            }
+        }
+    }
+    .quantity-container {
+        flex: 1;
+        display: flex;
+        height: 30px;
+        margin-top: 30px;
+        .quantity {
+            width: 40px;
+            @include text;
+        }
+        p {
+            @include text;
+        }
+    }
+}
+.card-basket {
+    height: 100%;
+    width: 100% !important;
+    border: transparent !important;
+    .card-header {
+        background: transparent;
+        border: transparent;
+        display: flex;
+        .choose-product {
+            margin: auto;
+            margin-bottom: 50px;
+            padding-left: 20px;
+            display: flex !important;
+            width: 600px;
+            #basket-choices {
+                flex: 1;
+                @include text;
+                option {
+                    @include text;
+                }
+            }
+            #add-basket {
+                flex: 1;
+                @include text;
+            }
+        }
+    }
+}
+.delete {
+    position: absolute;
+    background: transparent;
+    border: transparent;
+    height: 25px;
+    width: 25px;
+    .material-icons {
+        color: red;
+        margin-left: -5px;
+    }
+}
+.info-submit {
+    display: flex;
+    button {
+        margin: auto;
+    }
+}
+.info-weight {
+    display: flex;
+    #total-weight {
+        margin: auto;
+        @include text;
+    }
+}
+.btn-report {
+    font-family: "futuraBook" !important;
+    font-weight: bold !important;
+}
+.available {
+    @include text;
+}
+.btn-ok {
+    button {
+        font-family: "futuraBook" !important;
+        font-weight: bold !important;
+    }
+}

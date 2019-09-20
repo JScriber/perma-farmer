@@ -350,6 +350,203 @@
   background-image: url(/images/haricot.jpg?151cd20cf49f9d97c246413233f33be2);
 }
 
+.head {
+  display: flex;
+  flex-direction: column;
+}
+
+.head .logo-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.head .logo-container .logo-welcome {
+  background-image: url(/images/Perma-Farmer.png?490c5d170be35bbd114a4b91d8d62b2e);
+  height: 208px;
+  width: 281px;
+  margin: auto;
+  background-size: 300px;
+  background-repeat: no-repeat;
+  background-position: top -11px left -11px;
+}
+
+.head .title-welcome {
+  color: #707070;
+  font-family: "perpetua";
+  font-size: 25px;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.image-basket {
+  background-image: url(/images/carotte.jpg?e843031eb644a37edc197564ad655ed0);
+  height: 95px;
+  width: 146px;
+  background-size: 145px;
+  background-repeat: no-repeat;
+}
+
+#list-selected-baskets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.basket-product {
+  display: flex;
+  height: 150px;
+  width: 335px;
+}
+
+.basket-product .info-product {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+}
+
+.basket-product .info-product .infos {
+  display: flex !important;
+}
+
+.basket-product .info-product .name {
+  flex: 1;
+  margin-right: 5px;
+}
+
+.basket-product .info-product .name p {
+  margin: 0 !important;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  color: #000000;
+  font-family: "futuraBook";
+  font-weight: bold;
+}
+
+.basket-product .info-product .weight {
+  flex: 1;
+}
+
+.basket-product .info-product .weight p {
+  margin: 0 !important;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  color: #000000;
+  font-family: "futuraBook";
+  font-weight: bold;
+}
+
+.basket-product .quantity-container {
+  flex: 1;
+  display: flex;
+  height: 30px;
+  margin-top: 30px;
+}
+
+.basket-product .quantity-container .quantity {
+  width: 40px;
+  color: #000000;
+  font-family: "futuraBook";
+  font-weight: bold;
+}
+
+.basket-product .quantity-container p {
+  color: #000000;
+  font-family: "futuraBook";
+  font-weight: bold;
+}
+
+.card-basket {
+  height: 100%;
+  width: 100% !important;
+  border: transparent !important;
+}
+
+.card-basket .card-header {
+  background: transparent;
+  border: transparent;
+  display: flex;
+}
+
+.card-basket .card-header .choose-product {
+  margin: auto;
+  margin-bottom: 50px;
+  padding-left: 20px;
+  display: flex !important;
+  width: 600px;
+}
+
+.card-basket .card-header .choose-product #basket-choices {
+  flex: 1;
+  color: #000000;
+  font-family: "futuraBook";
+  font-weight: bold;
+}
+
+.card-basket .card-header .choose-product #basket-choices option {
+  color: #000000;
+  font-family: "futuraBook";
+  font-weight: bold;
+}
+
+.card-basket .card-header .choose-product #add-basket {
+  flex: 1;
+  color: #000000;
+  font-family: "futuraBook";
+  font-weight: bold;
+}
+
+.delete {
+  position: absolute;
+  background: transparent;
+  border: transparent;
+  height: 25px;
+  width: 25px;
+}
+
+.delete .material-icons {
+  color: red;
+  margin-left: -5px;
+}
+
+.info-submit {
+  display: flex;
+}
+
+.info-submit button {
+  margin: auto;
+}
+
+.info-weight {
+  display: flex;
+}
+
+.info-weight #total-weight {
+  margin: auto;
+  color: #000000;
+  font-family: "futuraBook";
+  font-weight: bold;
+}
+
+.btn-report {
+  font-family: "futuraBook" !important;
+  font-weight: bold !important;
+}
+
+.available {
+  color: #000000;
+  font-family: "futuraBook";
+  font-weight: bold;
+}
+
+.btn-ok button {
+  font-family: "futuraBook" !important;
+  font-weight: bold !important;
+}
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors

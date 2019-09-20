@@ -6,42 +6,46 @@
     @if ($can_modify == true)
 
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <h2>Votre panier à personnaliser</h2>
-
-                @if ($can_report == true)
-                    <form action={{url('panier/report')}} method="POST">
-                        @csrf
-                        <button type="submit" class="btn-link">
-                            Reporter mon panier
-                        </button>
-                    </form>
-                @endif
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="form-group row">
-                            <select class="form-control" id="basket-choices"></select>
-
-                            <button id="add-basket" class="btn" type="button">Ajouter</button>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-
-                        <form action={{url('panier')}} method="POST">
+            <div class="head">
+                <div class="logo-container">
+                    <div class="logo-welcome"></div>
+                </div>
+                <div class="title-welcome">Choisissez vos produits</div>
+            </div>
+            <div class="card card-basket">
+                <div class="info info-weight">
+                    <div id="total-weight">1,6kg / 7kg</div>
+                </div>
+                <div class="card-header">
+                    <div class="form-group row choose-product">
+                        <select class="form-control" id="basket-choices"></select>
+                        <button id="add-basket" class="btn" type="button">Ajouter</button>
+                        @if ($can_report == true)
+                        <form action={{url('panier/report')}} method="POST">
                             @csrf
+                            <button type="submit" class="btn btn-outline-danger btn-report">
+                                Reporter mon panier
+                            </button>
+                        </form>
+                    @endif
+                    </div>
+                </div>
 
-                            <div class="info">
-                                <div id="total-weight">1,6kg / 7kg</div>
-                                <button type="submit" class="btn-primary">Valider mon panier</button>
-                            </div>
 
-                            <ul id="list-selected-baskets">
-                                <li class="template" style="list-style: none; border: 1px solid grey; padding: 10px">
-                                    <button type="button" class="delete btn-danger">Supprimer</button>
+                <div class="card-body">
+
+                    <form action={{url('panier')}} method="POST">
+                        @csrf
+
+
+
+                        <ul id="list-selected-baskets">
+                            <li class="template basket-product">
+
+                                <div class="info-product">
+                                    <button type="button" class="delete"><i class="material-icons">cancel</i></button>
                                     <div class="image-product">
-                                        <img src="../assets/panier.png" alt="panier">
+                                        <div class="image-basket"></div>
                                     </div>
 
                                     <div class="infos">
@@ -50,20 +54,25 @@
                                     </div>
 
                                     <input hidden readonly class="product-id" type="number" name="products[][id]"/>
-
-                                    <div class="quantity-container">
-                                        <button type="button" class="minus">-</button>
-                                        <input readonly class="quantity" type="number" name="products[][quantity]"/>
-                                        <button type="button" class="plus">+</button>
-
-                                        <p>pièces/bottes</p>
-                                    </div>
-
                                     <p class="available">disponible(s)</p>
-                                </li>
-                            </ul>
-                        </form>
-                    </div>
+
+                                </div>
+
+                                <div class="quantity-container">
+                                    <button type="button" class="minus">-</button>
+                                    <input readonly class="quantity" type="number" name="products[][quantity]"/>
+                                    <button type="button" class="plus">+</button>
+
+                                    <p>pièces/bottes</p>
+                                </div>
+
+                            </li>
+                        </ul>
+                        <div class="info info-submit btn-ok">
+                            <button type="submit" class="btn btn-outline-success">Valider mon panier</button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -194,7 +203,7 @@
 
                 // Delete behaviour.
                 template.querySelector('.delete').addEventListener('click', function () {
-                    const parent = this.parentNode;
+                    const parent = this.parentNode.parentNode;
                     const id = Number.parseInt(parent.getAttribute('data-id'));
 
                     selectedProducts = selectedProducts.filter(p => p.id !== id);
