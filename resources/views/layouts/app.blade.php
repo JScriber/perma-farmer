@@ -31,12 +31,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/') }}">{{ __('Panier') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/') }}">{{ __('Contact') }}</a>
-                        </li>
+                        @if(Auth::user())
+                            @if(Auth::user()->role->name =="Membre du staff")
+                                <li></li>
+                            @else
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/panier') }}">{{ __('Panier') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/panier') }}">{{ __('Panier') }}</a>
+                            </li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -86,12 +93,17 @@
             </div>
         </nav>
             @yield('content')
+        @if(Auth::user())
+            @if(Auth::user()->role->name =="Membre du staff")
+                <div></div>
+            @endif
+        @else
         <footer>
             <hr>
             <div class="liste-contact">
                 <div class="unit-contact">
                     <div class="logo-footer" id="logo-footer-1"></div>
-                    <div class="text" id="text-footer-1">Horraire du mardi au samedi de 14h à 20h</div>
+                    <div class="text" id="text-footer-1">Horaire du mardi au samedi de 14h à 20h</div>
                 </div>
                 <div class="unit-contact">
                     <div class="logo-footer" id="logo-footer-2"></div>
@@ -107,6 +119,7 @@
                 </div>
             </div>
         </footer>
+        @endif
     </div>
 </body>
 </html>
