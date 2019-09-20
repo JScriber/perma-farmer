@@ -4,10 +4,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Commandes en attente</h2>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('orderSend') }}"> Livraison</a>
+                <h2>Commandes en attente de validation</h2>
             </div>
         </div>
     </div>
@@ -21,23 +18,23 @@
 
     <table class="table table-bordered">
         <tr>
-            <th>client</th>
-            <th>Type de pannier</th>
+            <th>Client</th>
             <th>Résumé</th>
+            <th>Type de panier</th>
             <th width="280px">Action</th>
         </tr>
-        
+
         @foreach ($orders as $order)
         <tr>
             <td>{{ $order["firstname"]." ".$order["lastname"] }}</td>
-            <td>{{ $order["basket"] }}</td>
             <td>
                 <ul>
                 @foreach ($order["products"] as $product)
                     <li>{{ $product["num"]." ".$product["label"] }}</li>
-                @endforeach        
+                @endforeach
                 </ul>
             </td>
+            <td>{{ $order["basket"] }}</td>
             <td>
                 <form action="{{ route('orderValidate',['id'=>$order['id']]) }}" method="POST">
                     @csrf
@@ -48,6 +45,4 @@
         @endforeach
 
     </table>
-
-
 @endsection

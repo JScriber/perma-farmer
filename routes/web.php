@@ -40,7 +40,8 @@ Route::resource('/admin/bags','BagsController');
 
 // block_order
 Route::get('/admin/order','OrderController@index')->name("order");
-Route::get('/admin/order/send','OrderController@send')->name("orderSend");
-Route::get('/admin/order/send/validate','OrderController@send')->name("orderSendValidate");
 Route::post('/admin/order/validate','OrderController@valid')->name("orderValidate");
 
+//Reception.
+Route::get('/admin/reception', 'ReceptionController@index')->name('reception');
+Route::post('/admin/reception', 'ReceptionController@send')->name('receptionSend');
