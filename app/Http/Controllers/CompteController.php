@@ -78,7 +78,7 @@ class CompteController extends Controller
                 'Visa',
                 'American Express'
             ]
-        ], compact('compte'));
+        ], compact('user'));
     }
 
     /**
@@ -129,7 +129,7 @@ class CompteController extends Controller
             "type"=>$request->card_type,
             "card_number"=>$request->card_number,
             "crypto"=>$request->card_crypto,
-            "expiration_date"=>$request->card_expiration           
+            "expiration_date"=>$request->card_expiration
         ]);
 
         $subscription = Subscription::find(intval($request->subscription));
