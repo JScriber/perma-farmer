@@ -16,7 +16,7 @@ class Basket extends Model
      *
      * @var array
      */
-    protected $fillable = ['validated', 'order_date', 'user_subscription_id', 'crate_id'];
+    protected $fillable = ['validated', 'order_date', 'user_subscription_id'];
 
     /**
      * {@link BasketProduct BasketProducts} in the {@link Basket}.
@@ -34,14 +34,5 @@ class Basket extends Model
     public function userSubscription()
     {
         return $this->belongsTo(UserSubscription::class, 'user_subscription_id', 'basket_id');
-    }
-
-    /**
-     * {@link Basket} container.
-     * @return BelongsTo
-     */
-    public function crate()
-    {
-        return $this->belongsTo(Crate::class);
     }
 }
