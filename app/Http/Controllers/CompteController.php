@@ -45,11 +45,11 @@ class CompteController extends Controller
             'lastname'=>'required',
             'email'=>'required',
             'password'=>'required',
-            'creditCard->owner'=>'required',
-            'creditCard->type'=>'required',
-            'creditCard->card_number'=>'required',
-            'creditCard->crypto'=>'required',
-            'creditCard->expiration_date'=>'required'
+            'owner'=>'required',
+            'type'=>'required',
+            'card_number'=>'required',
+            'crypto'=>'required',
+            'expiration_date'=>'required'
         ]);
 
         User::create($request->all());
@@ -97,21 +97,10 @@ class CompteController extends Controller
         ]);
 
         User::find($id)->update($request->all());
-        // $user = User::find($id);
-        // $user->firstname =  $request->get('firstname');
-        // $user->lastname = $request->get('lastname');
-        // $user->email = $request->get('email');
-        // $user->password = $request->get('password');
-        // $user->creditCard->owner = $request->get('owner');
-        // $user->creditCard->type = $request->get('type');
-        // $user->creditCard->card_number = $request->get('card_number');
-        // $user->creditCard->crypto = $request->get('crypto');
-        // $user->creditCard->expiration_date = $request->get('expiration_date');
-        // $user->save();
-        // $user->update($request->all());
 
-        return redirect()->route('compte.index')
-        ->with('success', 'Compte mis à jour.');
+        return view('compte.index');
+        // return redirect()->route('compte.index')
+        // ->with('success', 'Compte mis à jour.');
      }
 
     /**
