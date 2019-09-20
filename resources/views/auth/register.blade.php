@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">{{ __('S\'inscrire') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -16,6 +16,10 @@
 
                             <div class="col-md-6">
                                 <input id="lastname" type="text" class="form-control{{ $errors->has('lastname') ? ' is-invalid' : '' }}" name="lastname" value="{{ old('lastname') }}" required autofocus>
+
+                                <span class="invalid-feedback regular-character" role="alert" style="display: none;">
+                                    <strong>Veillez ne pas utiliser de caractères spéciaux.</strong>
+                                </span>
 
                                 @if ($errors->has('lastname'))
                                     <span class="invalid-feedback" role="alert">
@@ -30,6 +34,10 @@
 
                             <div class="col-md-6">
                                 <input id="firstname" type="text" class="form-control{{ $errors->has('firstname') ? ' is-invalid' : '' }}" name="firstname" value="{{ old('firstname') }}" required autofocus>
+
+                                <span class="invalid-feedback regular-character" role="alert" style="display: none;">
+                                    <strong>Veillez ne pas utiliser de caractères spéciaux.</strong>
+                                </span>
 
                                 @if ($errors->has('firstname'))
                                     <span class="invalid-feedback" role="alert">
@@ -57,7 +65,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Mot de passe') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                                <input id="password" type="password" minlength="6" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">
@@ -72,6 +80,9 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                <span class="invalid-feedback" role="alert" style="display: none;">
+                                    <strong>Les mots de passe ne correspondent pas.</strong>
+                                </span>
                             </div>
                         </div>
 
@@ -149,6 +160,10 @@
                             <div class="col-md-6">
                                 <input id="card_number" type="text" class="form-control{{ $errors->has('card_number') ? ' is-invalid' : '' }}" name="card_number" value="{{ old('card_number') }}" required>
 
+                                <span class="invalid-feedback min-size" role="alert" style="display: none;">
+                                    <strong>16 caractères sont attendus. Ne pas mettre d'espace.</strong>
+                                </span>
+
                                 @if ($errors->has('card_number'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('card_number') }}</strong>
@@ -162,6 +177,10 @@
 
                             <div class="col-md-6">
                                 <input id="card_crypto" type="text" class="form-control{{ $errors->has('card_crypto') ? ' is-invalid' : '' }}" name="card_crypto" value="{{ old('card_crypto') }}" required>
+
+                                <span class="invalid-feedback min-size" role="alert" style="display: none;">
+                                    <strong>Saisir le code à trois chiffres.</strong>
+                                </span>
 
                                 @if ($errors->has('card_crypto'))
                                     <span class="invalid-feedback" role="alert">
@@ -197,5 +216,89 @@
             </div>
         </div>
     </div>
+
+    <script>
+
+        /** Adds the password rule. */
+        function passwordRule() {
+            const password = document.getElementById('password');
+            const passwordConfirm = document.getElementById('password-confirm');
+
+            function checkPassword() {
+                const passwordValue = password.value;
+
+                const errorMessage = passwordConfirm.parentNode.querySelector('.invalid-feedback');
+
+                if (passwordConfirm.value === passwordValue || passwordConfirm.value === '') {
+                    errorMessage.style.display = 'none';
+                } else {
+                    errorMessage.style.display = 'block';
+                }
+            }
+
+            password.addEventListener('keyup', checkPassword);
+            passwordConfirm.addEventListener('keyup', checkPassword);
+        }
+
+        /** Set min date. */
+        function setMinDate() {
+            let today = new Date();
+            let dd = today.getDate();
+            let mm = today.getMonth() + 1;
+            let yyyy = today.getFullYear();
+
+            if (dd < 10) dd = '0' + dd;
+            if (mm < 10) mm = '0' + mm;
+
+            today = yyyy + '-' + mm + '-' + dd;
+
+            document.getElementById('card_expiration_date').setAttribute('min', today);
+        }
+
+        /** Apply min size validation. */
+        function minSize(input, maxLength) {
+            const errorMessage = input.parentNode.querySelector('.min-size');
+            const length = input.value.length;
+
+            if (length > 0 && length < maxLength || length > maxLength) {
+                errorMessage.style.display = 'block';
+            } else {
+                errorMessage.style.display = 'none';
+            }
+        }
+
+        function useRegularCharacter() {
+            const errorMessage = this.parentNode.querySelector('.regular-character');
+
+            if (errorMessage && this.value.length > 0) {
+                const regex = /^[a-zA-Z0-9ç\- ]+$/;
+
+                if (regex.test(this.value)) {
+                    errorMessage.style.display = 'none';
+                } else {
+                    errorMessage.style.display = 'block';
+                }
+            }
+        }
+
+        // Window loading.
+        window.addEventListener('load', function() {
+            passwordRule();
+            setMinDate();
+
+            // Attach event.
+            document.getElementById('card_number').addEventListener('keyup', function() {
+                minSize(this, 16);
+            });
+
+            // Attach event.
+            document.getElementById('card_crypto').addEventListener('keyup', function() {
+                minSize(this, 3);
+            });
+
+            document.getElementById('lastname').addEventListener('keyup', useRegularCharacter);
+            document.getElementById('firstname').addEventListener('keyup', useRegularCharacter);
+        });
+    </script>
 </div>
 @endsection
