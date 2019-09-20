@@ -5,7 +5,15 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h2>Votre panier à personnaliser</h2>
-            <a href="" class="btn-link">Reporter mon panier</a>
+
+            @if ($can_report == true)
+                <form action={{url('panier/report')}} method="POST">
+                    @csrf
+                    <button type="submit" class="btn-link">
+                        Reporter mon panier
+                    </button>
+                </form>
+            @endif
 
             <div class="card">
                 <div class="card-header">
