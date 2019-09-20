@@ -9,6 +9,7 @@ use App\Role;
 use App\Subscription;
 use App\User;
 use App\UserSubscription;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -74,6 +75,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
@@ -86,7 +88,7 @@ class RegisterController extends Controller
             'card_type' => ['required', 'string'],
             'card_number' => ['required', 'string', 'max:16', 'min:16'],
             'card_crypto' => ['required', 'string', 'max:3', 'min:3'],
-            'card_expiration_date' => ['required', 'string', 'date']
+            'card_expiration_date' => ['required', 'string', 'date', 'after:' . Carbon::now()]
         ]);
     }
 
