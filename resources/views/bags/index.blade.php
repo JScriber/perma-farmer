@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Liste de sac</h2>
+                <h2>Liste des sacs</h2>
             </div>
             <div class="pull-right">
                 <a class="btn btn-success" href="{{ route('bags.create') }}"> Créer un sac</a>
@@ -22,9 +22,9 @@
     <table class="table table-bordered">
         <tr>
             <th>N°</th>
-            <th>Reference</th>
-            <th>Nom client</th>
-            <th width="280px">Action</th>
+            <th>Références</th>
+            <th>Nom du client</th>
+            <th width="280px">Actions</th>
         </tr>
         @foreach ($bags as $bag)
         <tr>

@@ -31,7 +31,7 @@
          <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Reference:</strong>
+                    <strong>Référence : </strong>
                     <input type="text" name="reference" value="{{ $bag->reference }}" class="form-control" placeholder="reference">
                 </div>
             </div>
@@ -53,7 +53,7 @@
                 </select>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-              <button type="submit" class="btn btn-primary">Valider</button>
+              <button type="submit" class="btn btn-primary btn-valid-bag">Valider</button>
             </div>
         </div>
     </form>

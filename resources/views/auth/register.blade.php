@@ -2,10 +2,11 @@
 
 @section('content')
 <div class="container">
+    <div class="logo-image"></div>
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('S\'inscrire') }}</div>
+            <div class="card" id="register_card">
+                <div class="register_title">{{ __('S\'inscrire') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -18,7 +19,7 @@
                                 <input id="lastname" type="text" class="form-control{{ $errors->has('lastname') ? ' is-invalid' : '' }}" name="lastname" value="{{ old('lastname') }}" required autofocus>
 
                                 <span class="invalid-feedback regular-character" role="alert" style="display: none;">
-                                    <strong>Veillez ne pas utiliser de caractères spéciaux.</strong>
+                                    <strong>Veuillez ne pas utiliser de caractères spéciaux.</strong>
                                 </span>
 
                                 @if ($errors->has('lastname'))
@@ -36,7 +37,7 @@
                                 <input id="firstname" type="text" class="form-control{{ $errors->has('firstname') ? ' is-invalid' : '' }}" name="firstname" value="{{ old('firstname') }}" required autofocus>
 
                                 <span class="invalid-feedback regular-character" role="alert" style="display: none;">
-                                    <strong>Veillez ne pas utiliser de caractères spéciaux.</strong>
+                                    <strong>Veuillez ne pas utiliser de caractères spéciaux.</strong>
                                 </span>
 
                                 @if ($errors->has('firstname'))
@@ -201,14 +202,14 @@
                                         <strong>{{ $errors->first('card_expiration_date') }}</strong>
                                     </span>
                                 @endif
-                                
+
                             </div>
                         </div>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('S\'inscrire') }}
+                                <button type="submit" class="btn btn-primary" id="register_btn">
+                                    {{ __('Valider mes informations') }}
                                 </button>
                             </div>
                         </div>

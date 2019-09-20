@@ -552,6 +552,63 @@
   font-weight: bold !important;
 }
 
+.login_title {
+  color: #707070;
+  font-family: "perpetua";
+  font-size: 25px;
+  text-decoration: underline;
+  margin: auto;
+  padding: 30px;
+}
+
+label,
+#login_btn,
+#login_mdp,
+#reset_mdp {
+  color: #000000;
+  font-family: "futuraBook";
+  font-weight: bold;
+}
+
+#login_btn,
+#reset_mdp {
+  background: #ffffff;
+  border-color: #707070;
+  color: #547257;
+}
+
+.login_card,
+.reset_card {
+  margin: 110px;
+}
+
+.register_title {
+  color: #707070;
+  font-family: "perpetua";
+  font-size: 25px;
+  text-decoration: underline;
+  margin: auto;
+  padding: 30px;
+}
+
+label,
+p,
+#register_btn {
+  color: #000000;
+  font-family: "futuraBook";
+  font-weight: bold;
+}
+
+#register_btn {
+  background: #ffffff;
+  border-color: #707070;
+  color: #547257;
+}
+
+#register_card {
+  margin: 30px 0 60px 0;
+}
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -11433,5 +11490,9 @@ footer .liste-contact #unit-contact-3 {
   display: flex;
   margin: auto;
   justify-content: space-around;
+}
+
+.btn-valid-bag {
+  margin-top: 20px;
 }
 

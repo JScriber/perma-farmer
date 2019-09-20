@@ -1,0 +1,19 @@
+.register_title{
+    @include title($title-color);
+    text-decoration: underline;
+    margin: auto;
+    padding: 30px;
+}
+label, p, #register_btn{
+    @include text;
+}
+
+#register_btn{
+    background: #ffffff;
+    border-color: $title-color;
+    color: $box-shadow-color-2;
+}
+#register_card{
+    margin: 30px 0 60px 0;
+}
+
