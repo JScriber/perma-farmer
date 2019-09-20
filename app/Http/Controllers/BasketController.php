@@ -7,11 +7,11 @@ use App\BasketProduct;
 use App\Role;
 use App\UserSubscription;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Product;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 
 class BasketController extends Controller
 {
@@ -56,7 +56,7 @@ class BasketController extends Controller
                 ]);
             }
 
-            $canModify = !$subscription->basket->not_validated;
+            $canModify = !$subscription->basket->validated;
         }
 
         // Check
@@ -73,6 +73,7 @@ class BasketController extends Controller
         return view('panier.index', [
             'products_available' => json_encode($productsAvailable),
             'old_selection' => json_encode($oldSelection),
+            'old_basket' => $subscription->basket,
             'can_report' => $canReport,
             'can_modify' => $canModify,
             'max_weight' => $request->user()->userSubscriptions[0]->subscription->max_weight
@@ -82,6 +83,7 @@ class BasketController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function create(Request $request)
@@ -156,6 +158,7 @@ class BasketController extends Controller
                 $subscription->save();
             }
 
+            return redirect('/');
         } catch (\Exception $exception) {
             return redirect()->back()->withInput();
         }
@@ -195,6 +198,7 @@ class BasketController extends Controller
     /**
      * Reports the current basket.
      * @param Request $request
+     * @return RedirectResponse|Redirector
      */
     public function report(Request $request)
     {
@@ -239,7 +243,7 @@ class BasketController extends Controller
             }
         }
 
-        return redirect()->route('home');
+        return redirect('/');
     }
 
     /**
