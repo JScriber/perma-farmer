@@ -11417,3 +11417,21 @@ footer .liste-contact #unit-contact-3 {
   margin-left: 100px;
 }
 
+.link-admin {
+  color: #547257;
+  font-family: "perpetua";
+  font-size: 25px;
+  font-size: 30px !important;
+}
+
+.admin-image {
+  margin-bottom: 200px;
+}
+
+.list-link-admin {
+  width: 1200px;
+  display: flex;
+  margin: auto;
+  justify-content: space-around;
+}
+

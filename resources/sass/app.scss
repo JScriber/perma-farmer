@@ -193,3 +193,16 @@ footer {
 .btn-compte-delete {
     margin-left: 100px;
 }
+.link-admin {
+    @include title($box-shadow-color-2);
+    font-size: 30px !important;
+}
+.admin-image {
+    margin-bottom: 200px;
+}
+.list-link-admin {
+    width: 1200px;
+    display: flex;
+    margin: auto;
+    justify-content: space-around;
+}
