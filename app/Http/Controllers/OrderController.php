@@ -31,34 +31,57 @@ class OrderController extends Controller
         $request->user()->authorizeRole(Role::adminRole());
 
         $tab = Array();
-        $product = Array();
+        $products = Array();
 
-        $orders = Basket::all()->where("status","wait_validation");
+        $orders = Basket::all()->where("validated","=","false");
 
         
 
-
         foreach($orders as $order){
 
-            // foreach($order->products->groupBy("product_type_id") as $products ){
-            //     foreach($products as $k => $v){
-            //         array_push($product,Array( $products[$k][0]=> $products[$k]->count()));
-            //     }
-            // }
 
+            foreach($order->basketProducts as $product){
+                array_push($products,Array("nom" => $product->quantity, "label" => $product->product->name));
+            }
 
 
             array_push($tab,Array(
-
-                "client" => $order->userSubscription->user,
-                "type" => $order->userSubscription->subscription,
-                "products" => $product
-
+                "firstname" => $order->userSubscription->user->firstname,
+                "lastname" => $order->userSubscription->user->lastname,
+                "basket" => $order->userSubscription->subscription,
+                "products" => $products
             ));
         }
 
+        var_dump($tab);
 
-        var_dump($tab[0]["products"]->id);
+        // user App\Basket::All()->first()->userSubscription->user;
+        // panier App\Basket::All()->first()->userSubscription->subscription
+        // produits App\Basket::All()->first()->basketProducts
+        // produit App\Basket::All()->first()->basketProducts->first()->product
+
+
+        // foreach($orders as $order){
+
+        //     // foreach($order->products->groupBy("product_type_id") as $products ){
+        //     //     foreach($products as $k => $v){
+        //     //         array_push($product,Array( $products[$k][0]=> $products[$k]->count()));
+        //     //     }
+        //     // }
+
+
+
+        //     // array_push($tab,Array(
+
+        //     //     "client" => $order->userSubscription->user,
+        //     //     "type" => $order->userSubscription->subscription,
+        //     //     "products" => $product
+
+        //     // ));
+        // }
+
+
+        // var_dump($tab[0]["products"]->id);
 
         // $client;
         // $content;
