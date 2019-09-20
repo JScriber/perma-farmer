@@ -28,7 +28,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
+                <a class="navbar-brand" href="{{ url('/') }}"><i class="material-icons">home</i></a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
@@ -53,7 +53,7 @@
                                 </li>
                             @elseif(Auth::user()->role->name=="Client simple")
                             <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/') }}">{{ __('Mon Compte') }}</a>
+                                    <a class="nav-link" href="{{ url('/compte') }}">{{ __('Mon Compte') }}</a>
                                 </li>
                             @endif
                         @endif

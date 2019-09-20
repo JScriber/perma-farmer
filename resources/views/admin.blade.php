@@ -7,9 +7,10 @@
                 </div>
                 <a class="btn btn-outline-primary btn" href="{{ route('stock') }}">{{ __('Stock') }}</a>
                 <a class="btn btn-outline-primary btn" href="{{ route('bags.index') }}">{{ __('Sacs') }}</a>
-                <a class="btn btn-outline-primary btn" href="">{{ __('Commande') }}</a>
-                <a class="btn btn-outline-primary btn" href="">{{ __('Reception') }}</a>
+                <a class="btn btn-outline-primary btn" href="{{ route('order') }}">{{ __('Commande') }}</a>
+                <a class="btn btn-outline-primary btn" href="{{ route('reception') }}">{{ __('Reception') }}</a>
             </div>
         </div>
 @endsection
+
 

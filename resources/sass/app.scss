@@ -66,6 +66,9 @@ body {
     text-decoration: none;
     text-transform: uppercase;
 }
+.navbar-brand {
+    padding-top: 9px !important;
+}
 .nav-link {
     font-family: "futuraBook";
     color: $text-color !important;
@@ -143,4 +146,50 @@ footer {
             width: 150px;
         }
     }
+}
+.logo-image {
+    @include background("../../public/assets/Perma-Farmer.png");
+    height: 208px;
+    width: 281px;
+    margin: auto;
+    background-size: 300px;
+    background-repeat: no-repeat;
+    background-position: top -11px left -11px;
+}
+.compte-header {
+    @include title($title-color);
+    text-decoration: underline;
+    margin: auto;
+}
+.compte-card {
+    margin: auto;
+    p {
+        @include text;
+    }
+}
+.compte-card-edit {
+    p,
+    h5,
+    h3,
+    input,
+    select {
+        @include text;
+    }
+}
+.ok-compte {
+    margin: auto;
+}
+.ok-compte-container {
+    display: flex;
+}
+.card-compte {
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.btn-compte-valid {
+    margin-right: 100px;
+}
+.btn-compte-delete {
+    margin-left: 100px;
 }

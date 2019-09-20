@@ -547,6 +547,11 @@
   font-weight: bold !important;
 }
 
+.btn-ok a {
+  font-family: "futuraBook" !important;
+  font-weight: bold !important;
+}
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -11239,6 +11244,10 @@ body {
   text-transform: uppercase;
 }
 
+.navbar-brand {
+  padding-top: 9px !important;
+}
+
 .nav-link {
   font-family: "futuraBook";
   color: #000000 !important;
@@ -11346,5 +11355,65 @@ footer .liste-contact .unit-contact #text-footer-3 {
 
 footer .liste-contact #unit-contact-3 {
   width: 150px;
+}
+
+.logo-image {
+  background-image: url(/images/Perma-Farmer.png?490c5d170be35bbd114a4b91d8d62b2e);
+  height: 208px;
+  width: 281px;
+  margin: auto;
+  background-size: 300px;
+  background-repeat: no-repeat;
+  background-position: top -11px left -11px;
+}
+
+.compte-header {
+  color: #707070;
+  font-family: "perpetua";
+  font-size: 25px;
+  text-decoration: underline;
+  margin: auto;
+}
+
+.compte-card {
+  margin: auto;
+}
+
+.compte-card p {
+  color: #000000;
+  font-family: "futuraBook";
+  font-weight: bold;
+}
+
+.compte-card-edit p,
+.compte-card-edit h5,
+.compte-card-edit h3,
+.compte-card-edit input,
+.compte-card-edit select {
+  color: #000000;
+  font-family: "futuraBook";
+  font-weight: bold;
+}
+
+.ok-compte {
+  margin: auto;
+}
+
+.ok-compte-container {
+  display: flex;
+}
+
+.card-compte {
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.btn-compte-valid {
+  margin-right: 100px;
+}
+
+.btn-compte-delete {
+  margin-left: 100px;
 }
 

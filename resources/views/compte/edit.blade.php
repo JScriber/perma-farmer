@@ -3,14 +3,12 @@
 @section('content')
 
 <div class="container">
+    <div class="logo-image"></div>
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('compte.index') }}">Retour</a>
-            </div>
-                <div class="card-header">{{ __('Modifier son Compte') }}</div>
-                <div class="card-body">
+            <div class="card card-compte">
+                <div class="compte-header">{{ __('Modifier son Compte') }}</div>
+                <div class="card-body compte-card-edit">
                 <form action="{{ route('compte.update', ['id'=> $user->id]) }}" method="POST">
 
                     <input type="hidden" id="id" name="id" value="{{ $user->id }}">
@@ -86,20 +84,20 @@
                             </div>
                         </div>
                     </div>
-                
-                    <div class="card-footer">
-                    
+
+                    <div>
+
                         @csrf
                         @method('PUT')
-                        <div class="pull-right">
-                            <button type="submit" class="btn btn-success">Valider mes informations</button>
+                        <div class="pull-right btn-ok btn-compte-valid">
+                            <button type="submit" class="btn btn-outline-success">Valider mes informations</button>
                         </div>
                 </form>
 
                 <form action="{{ route('compte.destroy', $user->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Supprimer mon compte</button>
+                    <button type="submit" class="btn btn-outline-danger btn-report btn-compte-delete">Supprimer mon compte</button>
                 </form>
                 </div>
                 </div>
