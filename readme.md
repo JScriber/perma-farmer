@@ -21,6 +21,11 @@ composer install
 npm install
 ```
 
+Create the `.env` file:
+```
+cp .env.example .env
+```
+
 Generate an app key :
 ```
 php artisan key:generate 
@@ -47,6 +52,12 @@ Launch the project :
 ```
 php artisan serve
 ```
+## Usage
+|  email | password  | role  |
+|--------|-----------|-------|
+| root.root@gmail.com | password | administrator |
+| client.client@gmail.com | password | client |
+
 
 # Development
 
