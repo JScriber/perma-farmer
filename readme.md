@@ -65,3 +65,7 @@ Access tinker and play with the DAO with:
 ```
 php artisan tinker
 ```
+
+# Conception
+
+Specification file can be found under `conception` folder. 
