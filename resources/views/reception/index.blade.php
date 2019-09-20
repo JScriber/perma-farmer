@@ -15,37 +15,40 @@
         </div>
     @endif
 
-
-    <table class="table table-bordered">
-        <tr>
-            <th>Client</th>
-            <th>Résumé</th>
-            <th>Type de panier</th>
-            <th width="280px">Action</th>
-        </tr>
-
-        @foreach ($baskets as $basket)
+    @if ($baskets->count() > 0)
+        <table class="table table-bordered">
             <tr>
-                <td>{{ $basket->userSubscription->user->firstname ." ". $basket->userSubscription->user->firstname }}</td>
-                <td>
-                    <ul>
-                        @foreach ($basket->basketProducts as $basketProduct)
-                            <li>
-                                {{ $basketProduct->quantity . " " . $basketProduct->product->name }}
-                            </li>
-                        @endforeach
-                    </ul>
-                </td>
-                <td>
-                    {{ $basket->userSubscription->subscription->name }}
-                </td>
-                <td>
-                    <form action="{{ route('receptionSend',['id'=> $basket->id]) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-danger">Livrer</button>
-                    </form>
-                </td>
+                <th>Client</th>
+                <th>Résumé</th>
+                <th>Type de panier</th>
+                <th width="280px">Action</th>
             </tr>
-        @endforeach
-    </table>
+
+            @foreach ($baskets as $basket)
+                <tr>
+                    <td>{{ $basket->userSubscription->user->firstname ." ". $basket->userSubscription->user->lastname }}</td>
+                    <td>
+                        <ul>
+                            @foreach ($basket->basketProducts as $basketProduct)
+                                <li>
+                                    {{ $basketProduct->quantity . " " . $basketProduct->product->name }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        {{ $basket->userSubscription->subscription->name }}
+                    </td>
+                    <td>
+                        <form action="{{ route('receptionSend',['id'=> $basket->id]) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">Livrer</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </table>
+    @else
+        Aucune commande à réceptionner.
+    @endif
 @endsection
