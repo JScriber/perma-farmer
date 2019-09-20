@@ -16,6 +16,7 @@ class CreateUserSubscriptionsTable extends Migration
         Schema::create('user_subscriptions', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('pro_account');
+            $table->date('last_report')->nullable();
 
             $table->integer('subscription_id')->unsigned();
             $table->integer('user_id')->unsigned();

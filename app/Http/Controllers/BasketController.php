@@ -7,10 +7,11 @@ use App\BasketProduct;
 use App\Role;
 use App\UserSubscription;
 use Carbon\Carbon;
-use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Product;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 
 class BasketController extends Controller
 {
@@ -28,19 +29,24 @@ class BasketController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
         $request->user()->authorizeRole(Role::clientRole());
+        $subscription = $request->user()->userSubscriptions[0];
 
         $productsAvailable = Product::all()->all();
 
         $oldSelection = array();
 
-        if ($request->user()->userSubscriptions[0]->basket_id != null)
+        // Says if the client can create/edit a basket.
+        $canModify = true;
+
+        if ($subscription->basket_id != null)
         {
-            $oldBasketProducts = $request->user()->userSubscriptions[0]->basket->basketProducts;
+            $oldBasketProducts = $subscription->basket->basketProducts;
 
             foreach ($oldBasketProducts as $product)
             {
@@ -49,11 +55,27 @@ class BasketController extends Controller
                     'quantity' => $product->quantity
                 ]);
             }
+
+            $canModify = !$subscription->basket->validated;
+        }
+
+        // Check
+        $canReport = true;
+
+        if ($subscription->last_report != null)
+        {
+            $last_report = Carbon::parse($subscription->last_report);
+            $diffMonth = $last_report->diff(Carbon::now())->m;
+
+            $canReport = $diffMonth != 0;
         }
 
         return view('panier.index', [
             'products_available' => json_encode($productsAvailable),
             'old_selection' => json_encode($oldSelection),
+            'old_basket' => $subscription->basket,
+            'can_report' => $canReport,
+            'can_modify' => $canModify,
             'max_weight' => $request->user()->userSubscriptions[0]->subscription->max_weight
         ]);
     }
@@ -61,6 +83,7 @@ class BasketController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function create(Request $request)
@@ -135,6 +158,7 @@ class BasketController extends Controller
                 $subscription->save();
             }
 
+            return redirect('/');
         } catch (\Exception $exception) {
             return redirect()->back()->withInput();
         }
@@ -169,6 +193,57 @@ class BasketController extends Controller
                 }
             }
         }
+    }
+
+    /**
+     * Reports the current basket.
+     * @param Request $request
+     * @return RedirectResponse|Redirector
+     */
+    public function report(Request $request)
+    {
+        $request->user()->authorizeRole(Role::clientRole());
+
+        // Get the subscription.
+        $subscription = $request->user()->userSubscriptions[0];
+
+        // Get the user's basket.
+        $basket = $subscription->basket;
+
+        function report($subscription, $basket) {
+            $subscription->last_report = Carbon::now();
+
+            $basketOrderDate = Carbon::parse($basket->order_date);
+            $basketOrderDate->addDays(7);
+
+            $basket->order_date = $basketOrderDate;
+
+            $basket->save();
+            $subscription->save();
+        }
+
+        // Check if the user has a basket to report.
+        if ($basket != null)
+        {
+            // Check the last report date.
+            if ($subscription->last_report == null)
+            {
+                report($subscription, $basket);
+            } else {
+
+                // Check if nothing in this month.
+                $last_report = Carbon::parse($subscription->last_report);
+
+                $diffMonth = $last_report->diff(Carbon::now())->m;
+
+                if ($diffMonth > 0)
+                {
+                    report($subscription, $basket);
+                }
+            }
+        }
+
+        return redirect('/');
     }
 
     /**
