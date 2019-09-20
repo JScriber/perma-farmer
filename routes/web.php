@@ -22,6 +22,8 @@ Auth::routes();
 
 
 Route::resource('panier', 'BasketController');
+Route::resource('compte', 'CompteController');
+
 Route::post('/panier/report', 'BasketController@report');
 // Block_stock
 
