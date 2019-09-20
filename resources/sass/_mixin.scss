@@ -1,0 +1,27 @@
+@mixin tablet {
+    @media screen and (max-width: #{$screen-tablet}) {
+        @content;
+    }
+}
+@mixin mobile {
+    @media screen and (max-width: #{$screen-mobile}) {
+        @content;
+    }
+}
+@mixin text {
+    color: $text-color;
+    font-family: "futuraBook";
+    font-weight: bold;
+}
+@mixin flexcolumn {
+    display: flex;
+    flex-direction: column;
+}
+@mixin title($color) {
+    color: $color;
+    font-family: "perpetua";
+    font-size: 25px;
+}
+@mixin background($url) {
+    background-image: url($url);
+}

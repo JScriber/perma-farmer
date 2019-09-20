@@ -156,8 +156,7 @@ class BasketController extends Controller
                 $subscription->save();
             }
 
-            return redirect()->route('home');
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             return redirect()->back()->withInput();
         }
     }

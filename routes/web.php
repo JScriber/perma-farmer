@@ -15,9 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::get('/admin', function () {
+    return view('admin');
+});
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::resource('panier', 'BasketController');
@@ -35,5 +36,5 @@ Route::get('/admin/stock/modifier','StockController@edit')->name("stockEdit");
 Route::get('/admin/stock/modifier/valider','StockController@validEdit')->name("validStockEdit");
 
 Route::resource('/admin/bags','BagsController');
-Route::resource('/admin/crates','CrateController');
+
 

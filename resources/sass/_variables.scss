@@ -1,17 +1,31 @@
-
 // Body
 $body-bg: #f8fafc;
+
+//Title
+$title-color: #707070;
+
+//Text
+$text-color:#000000;
+
+//Welcome
+$width-main:1200px;
+$box-shadow-color:rgba(92, 134, 96, 0.85);
+$box-shadow-color-2:#547257;
 
 // Typography
 $font-family-sans-serif: "Nunito", sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
+//@mediaQuery
+$screen-tablet: 1230px;
+$screen-mobile: 550px;
+
 // Colors
 $blue: #3490dc;
 $indigo: #6574cd;
 $purple: #9561e2;
-$pink: #f66D9b;
+$pink: #f66d9b;
 $red: #e3342f;
 $orange: #f6993f;
 $yellow: #ffed4a;
