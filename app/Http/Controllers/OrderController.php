@@ -33,64 +33,31 @@ class OrderController extends Controller
         $tab = Array();
         $products = Array();
 
-        $orders = Basket::all()->where("validated","=","false");
-
-        
+        $orders = Basket::all()->where("validated","=","0");
 
         foreach($orders as $order){
 
 
             foreach($order->basketProducts as $product){
-                array_push($products,Array("nom" => $product->quantity, "label" => $product->product->name));
+                array_push($products,Array("num" => $product->quantity, "label" => $product->product->name));
             }
 
-
             array_push($tab,Array(
+                "id" => $order->id,
                 "firstname" => $order->userSubscription->user->firstname,
                 "lastname" => $order->userSubscription->user->lastname,
-                "basket" => $order->userSubscription->subscription,
+                "basket" => $order->userSubscription->subscription->name,
                 "products" => $products
             ));
         }
 
-        var_dump($tab);
-
+        // var_dump($tab);
         // user App\Basket::All()->first()->userSubscription->user;
         // panier App\Basket::All()->first()->userSubscription->subscription
         // produits App\Basket::All()->first()->basketProducts
         // produit App\Basket::All()->first()->basketProducts->first()->product
 
-
-        // foreach($orders as $order){
-
-        //     // foreach($order->products->groupBy("product_type_id") as $products ){
-        //     //     foreach($products as $k => $v){
-        //     //         array_push($product,Array( $products[$k][0]=> $products[$k]->count()));
-        //     //     }
-        //     // }
-
-
-
-        //     // array_push($tab,Array(
-
-        //     //     "client" => $order->userSubscription->user,
-        //     //     "type" => $order->userSubscription->subscription,
-        //     //     "products" => $product
-
-        //     // ));
-        // }
-
-
-        // var_dump($tab[0]["products"]->id);
-
-        // $client;
-        // $content;
-        // $basketType;
-
-
-        // return view('order.index',[
-        //     "orders"=>$orders
-        // ]);
+        return view('order.index')->with("orders",$tab);
     }
 
     /**
@@ -101,6 +68,19 @@ class OrderController extends Controller
     public function send(Request $request)
     {
         return view("order.send");
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function valid(Request $request)
+    {
+        
+
+        Basket::find($request->id)->update(Array("validated" => "1"));
+        return redirect()->route("order");
     }
 
 

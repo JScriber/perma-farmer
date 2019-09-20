@@ -21,12 +21,32 @@
 
     <table class="table table-bordered">
         <tr>
-            <th>Résumé</th>
             <th>client</th>
             <th>Type de pannier</th>
+            <th>Résumé</th>
             <th width="280px">Action</th>
         </tr>
         
+        @foreach ($orders as $order)
+        <tr>
+            <td>{{ $order["firstname"]." ".$order["lastname"] }}</td>
+            <td>{{ $order["basket"] }}</td>
+            <td>
+                <ul>
+                @foreach ($order["products"] as $product)
+                    <li>{{ $product["num"]." ".$product["label"] }}</li>
+                @endforeach        
+                </ul>
+            </td>
+            <td>
+                <form action="{{ route('orderValidate',['id'=>$order['id']]) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Valider</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+
     </table>
 
 
