@@ -1,0 +1,19 @@
+.login_title{
+    @include title($title-color);
+    text-decoration: underline;
+    margin: auto;
+    padding: 30px;
+}
+label, #login_btn, #login_mdp, #reset_mdp{
+    @include text;
+}
+
+#login_btn, #reset_mdp{
+    background: #ffffff;
+    border-color: $title-color;
+    color: $box-shadow-color-2;
+}
+
+.login_card, .reset_card{
+    margin: 110px;
+}

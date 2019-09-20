@@ -16,6 +16,12 @@
 //Basket
 @import "basket";
 
+//login
+@import "login";
+
+//login
+@import "register";
+
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
@@ -205,4 +211,7 @@ footer {
     display: flex;
     margin: auto;
     justify-content: space-around;
+}
+.btn-valid-bag{
+    margin-top:20px;
 }
